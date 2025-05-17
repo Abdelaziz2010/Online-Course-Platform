@@ -17,12 +17,14 @@ It provides a platform for students and educators to interact, share resources, 
 
 ## Technologies Used
 
-- .NET 8 (ASP.NET Core WebAPI)
+- .NET 9 (ASP.NET Core WebAPI)
 - Entity Framework Core & Linq
 - SQL Server (or your chosen database)
 - Microservices 
 - Azure DevOps (for CI/CD)
 - Azure Blob Storage (for file storage)
+- azure ad b2c for (authentication/authorization)
+- azure SendGrid for sending emails
 - Swagger (for API documentation)
 - AutoMapper (for object mapping)
 - FluentValidation (for model validation)
