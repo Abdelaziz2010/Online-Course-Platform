@@ -1,0 +1,3 @@
+
+Scaffold-DbContext "Server=.;Database=EduPlatformDB;Integrated Security=SSPI;MultipleActiveResultSets=true;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities -Context EduPlatformDbContext
+

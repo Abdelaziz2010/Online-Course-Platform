@@ -13,6 +13,8 @@ namespace EduPlatform.Presentation
             
             var builder = WebApplication.CreateBuilder(args);
 
+            var configuration = builder.Configuration;
+
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -23,7 +25,7 @@ namespace EduPlatform.Presentation
             
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddInfrastructureServices(builder.Configuration);
+            builder.Services.AddInfrastructureServices(configuration);
 
             builder.Services.AddApplicationServices();
 
