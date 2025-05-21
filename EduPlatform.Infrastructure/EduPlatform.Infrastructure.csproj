@@ -6,4 +6,21 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
+    <Folder Include="EntitiesConfiguration\" />
+    <Folder Include="Implementations\Repositories\" />
+    <Folder Include="Implementations\Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EduPlatform.Application\EduPlatform.Application.csproj" />
+    <ProjectReference Include="..\EduPlatform.Domain\EduPlatform.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

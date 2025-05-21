@@ -11,5 +11,15 @@
 	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EduPlatform.Application\EduPlatform.Application.csproj" />
+    <ProjectReference Include="..\EduPlatform.Domain\EduPlatform.Domain.csproj" />
+    <ProjectReference Include="..\EduPlatform.Infrastructure\EduPlatform.Infrastructure.csproj" />
+  </ItemGroup>
+
 
 </Project>

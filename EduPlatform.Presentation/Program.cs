@@ -1,3 +1,6 @@
+using Ecom.Presentation.Middlewares;
+using EduPlatform.Application.Extensions;
+using EduPlatform.Infrastructure.Extensions;
 
 namespace EduPlatform.Presentation
 {
@@ -10,10 +13,15 @@ namespace EduPlatform.Presentation
             // Add services to the container.
 
             builder.Services.AddControllers();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-             builder.Services.AddOpenApi();
+            builder.Services.AddOpenApi();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+
+            builder.Services.AddInfrastructureServices(builder.Configuration);
+
+            builder.Services.AddApplicationServices();
+
 
             var app = builder.Build();
 
@@ -27,8 +35,9 @@ namespace EduPlatform.Presentation
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseMiddleware<SecurityHeadersMiddleware>();
 
+            app.UseAuthorization();
 
             app.MapControllers();
 
