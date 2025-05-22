@@ -1,4 +1,3 @@
-using EduPlatform.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EduPlatform.Presentation.Controllers
@@ -13,19 +12,10 @@ namespace EduPlatform.Presentation.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly EduPlatformDbContext _context;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger,EduPlatformDbContext context)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            _context = context;
-        }
-
-        [HttpGet("GetAllCourses")]
-        public IActionResult GetCourses()
-        {
-            var courses = _context.Courses.ToList();
-            return Ok(courses);
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
