@@ -8,7 +8,7 @@ namespace EduPlatform.Application.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             // Register the AutoMapper service
-            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
             return services;
