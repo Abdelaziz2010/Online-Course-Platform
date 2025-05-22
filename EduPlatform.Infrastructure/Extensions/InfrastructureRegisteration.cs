@@ -1,4 +1,8 @@
-﻿using EduPlatform.Infrastructure.Data;
+﻿using EduPlatform.Application.Interfaces.Repositories;
+using EduPlatform.Application.Interfaces.Services;
+using EduPlatform.Infrastructure.Data;
+using EduPlatform.Infrastructure.Implementations.Repositories;
+using EduPlatform.Infrastructure.Implementations.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +20,12 @@ namespace EduPlatform.Infrastructure.Extensions
                     providerOptions => providerOptions.EnableRetryOnFailure());
             });
 
+
+            // register IUnitOfWork
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            //register services
+            services.AddScoped<ICategoryService, CategoryService>();
 
 
             return services;
