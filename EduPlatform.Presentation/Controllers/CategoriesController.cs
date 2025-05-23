@@ -1,4 +1,5 @@
-﻿using EduPlatform.Application.Interfaces.Services;
+﻿using EduPlatform.Application.DTOs.Category;
+using EduPlatform.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +16,7 @@ namespace EduPlatform.Presentation.Controllers
         }
 
         [HttpGet("Get-Category-By-Id/{id}")]
-        public async Task<IActionResult> GetCategoryById(int id)
+        public async Task<ActionResult<CategoryDTO>> GetCategoryById(int id)
         {
             var category = await _categoryService.GetCategoryByIdAsync(id);
             if (category == null)
@@ -26,15 +27,11 @@ namespace EduPlatform.Presentation.Controllers
         }
 
         [HttpGet("Get-All-Categories")]
-        public async Task<IActionResult> GetAllCategories()
+        public async Task<ActionResult<List<CategoryDTO>>> GetAllCategories()
         {
             var categories = await _categoryService.GetAllCategoriesAsync();
-            if (categories == null || !categories.Any())
-            {
-                return NotFound();
-            }
+          
             return Ok(categories);
         }
-
     }
 }

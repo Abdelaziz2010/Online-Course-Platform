@@ -8,7 +8,8 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
     {
         private readonly EduPlatformDbContext _context;
         private ICategoryRepository _categoryRepository;
-     
+        private ICourseRepository _courseRepository;
+
 
         public UnitOfWork(EduPlatformDbContext context)
         {
@@ -18,8 +19,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
 
         //lazy intialization
         public ICategoryRepository CategoryRepository => _categoryRepository ??= new CategoryRepository(_context);
-
-
+        public ICourseRepository CourseRepository => _courseRepository ??= new CourseRepository(_context);
 
         public async Task SaveChangesAsync()
         {

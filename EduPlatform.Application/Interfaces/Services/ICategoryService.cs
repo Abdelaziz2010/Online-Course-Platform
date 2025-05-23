@@ -1,6 +1,4 @@
-﻿
-
-using EduPlatform.Application.DTOs;
+﻿using EduPlatform.Application.DTOs.Category;
 using EduPlatform.Domain.Entities;
 
 namespace EduPlatform.Application.Interfaces.Services

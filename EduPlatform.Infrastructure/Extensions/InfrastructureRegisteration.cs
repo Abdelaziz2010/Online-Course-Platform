@@ -18,6 +18,8 @@ namespace EduPlatform.Infrastructure.Extensions
             {
                 option.UseSqlServer(configuration.GetConnectionString("PlatformDB"),
                     providerOptions => providerOptions.EnableRetryOnFailure());
+
+                //option.EnableSensitiveDataLogging(); // in development only for debugging purposes 
             });
 
 
@@ -26,6 +28,9 @@ namespace EduPlatform.Infrastructure.Extensions
 
             //register services
             services.AddScoped<ICategoryService, CategoryService>();
+
+            services.AddScoped<ICourseService, CourseService>();
+
 
 
             return services;
