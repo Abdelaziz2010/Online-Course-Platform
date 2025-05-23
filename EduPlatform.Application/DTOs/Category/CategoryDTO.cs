@@ -1,8 +1,6 @@
-﻿
-
-namespace EduPlatform.Application.DTOs
+﻿namespace EduPlatform.Application.DTOs.Category
 {
-    public class CategoryDTO
+    public record CategoryDTO
     {
         public int CategoryId { get; set; }
         public string CategoryName { get; set; } = null!;

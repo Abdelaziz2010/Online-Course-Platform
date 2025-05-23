@@ -1,6 +1,6 @@
 ﻿
 using AutoMapper;
-using EduPlatform.Application.DTOs;
+using EduPlatform.Application.DTOs.Category;
 using EduPlatform.Application.Interfaces.Repositories;
 using EduPlatform.Application.Interfaces.Services;
 
