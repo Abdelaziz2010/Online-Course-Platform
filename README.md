@@ -150,3 +150,19 @@ The platform also supports real-time interaction to promote active learning and 
 **Model Validation:** FluentValidation
 
 **Payment Gateway:** Stripe
+
+
+
+## Integrations with Other Services
+
+
+- **Azure AD B2C:** For user authentication and authorization.
+- **Azure SQL Server:** For relational database management and data storage.
+- **Azure Blob Storage:** For storing media files and other static content.
+- **SendGrid:** For sending email notifications.
+- **Stripe:** For secure payment processing.
+- **Application Insights:** For monitoring application performance and user behavior.
+- **Serilog:** For structured logging and diagnostics.
+- **Azure Key Vault:** For securely storing application secrets and sensitive data.
+- **Azure DevOps:** For source code management, CI/CD pipelines, and project management.
+- **Azure Web App:** For hosting the application in a scalable and managed environment.

@@ -2,7 +2,7 @@
 {
     public class SecurityHeadersMiddleware
     {
-        readonly RequestDelegate _next;
+        private readonly RequestDelegate _next;
         public SecurityHeadersMiddleware(RequestDelegate next)
         {
             _next = next;

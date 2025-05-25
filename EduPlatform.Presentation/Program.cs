@@ -1,6 +1,12 @@
 using Ecom.Presentation.Middlewares;
 using EduPlatform.Application.Extensions;
 using EduPlatform.Infrastructure.Extensions;
+using EduPlatform.Presentation.Middlewares;
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.AspNetCore.Diagnostics;
+using Serilog;
+using Serilog.Templates;
+using System.Net;
 
 namespace EduPlatform.Presentation
 {
@@ -9,13 +15,39 @@ namespace EduPlatform.Presentation
         public static void Main(string[] args)
         {
 
+
+            //Configure Serilog with the settings
+            Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.Debug()
+            .MinimumLevel.Information()
+            .Enrich.FromLogContext()
+            .CreateBootstrapLogger();
+
+
             #region Services Configuration
-            
+
             var builder = WebApplication.CreateBuilder(args);
 
             var configuration = builder.Configuration;
 
+
             // Add services to the container.
+
+            builder.Services.AddApplicationInsightsTelemetry();
+
+
+            builder.Host.UseSerilog((context, services, loggerConfiguration) => loggerConfiguration
+            .ReadFrom.Configuration(context.Configuration)
+            .ReadFrom.Services(services)
+            .WriteTo.Console(new ExpressionTemplate(
+                // Include trace and span ids when present.
+                "[{@t:HH:mm:ss} {@l:u3}{#if @tr is not null} ({substring(@tr,0,4)}:{substring(@sp,0,4)}){#end}] {@m}\n{@x}"))
+            .WriteTo.ApplicationInsights(
+              services.GetRequiredService<TelemetryConfiguration>(),TelemetryConverter.Traces));
+
+            Log.Information("Starting the EduPlatform API.....");
+
 
             builder.Services.AddControllers();
           
@@ -31,18 +63,26 @@ namespace EduPlatform.Presentation
 
             #endregion
 
+
             #region Middlewares
             
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // enable custom middlewares
+
+            app.UseMiddleware<RequestResponseLoggingMiddleware>();
+            app.UseMiddleware<RequestBodyLoggingMiddleware>();
+            app.UseMiddleware<ResponseBodyLoggingMiddleware>();
+
+
+            // Configure swagger middleware.
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseMiddleware<SecurityHeadersMiddleware>();
