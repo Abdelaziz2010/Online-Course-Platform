@@ -123,7 +123,9 @@ The platform also supports real-time interaction to promote active learning and 
 
 **Caching:** In-Memory Cache  
 
-**Logging:** Serilog and Application Insights  
+**Logging:** Serilog 
+
+**Monitoring:** Application Insights 
 
 **Notifications:** SendGrid  
 
@@ -132,8 +134,6 @@ The platform also supports real-time interaction to promote active learning and 
 **Deployment:** Azure Web App  
 
 **Serverless Functions:** Azure Functions for specific tasks  
-
-**Monitoring:** Azure Monitor  
 
 **Source Code Management:** Azure DevOps
 

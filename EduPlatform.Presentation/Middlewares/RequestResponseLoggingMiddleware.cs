@@ -2,7 +2,7 @@
 
 namespace EduPlatform.Presentation.Middlewares
 {
-    // the middleware that logs request and response details
+    // This middleware logs request and response details to Serilog sink (console).
     public class RequestResponseLoggingMiddleware
     {
 
@@ -15,22 +15,22 @@ namespace EduPlatform.Presentation.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
-            // Log the request
+            // Log the request details
             Log.Information($"Request: {context.Request.Method} {context.Request.Path}");
 
             // Copy the original response body stream
             var originalBodyStream = context.Response.Body;
 
-            // Create a new memory stream to capture the response
+            // We create a MemoryStream to temporarily hold the response.
             using (var responseBody = new MemoryStream())
             {
-                // Set the response body stream to the memory stream
+                // Set the response body stream to the memory stream.
                 context.Response.Body = responseBody;
 
-                // Continue processing the request
+                // Continue processing the request with the next middleware in the pipeline.
                 await _next(context);
 
-                // Log the response
+                // Log the response details
                 var response = await FormatResponse(context.Response);
                 Log.Information($"Response: {response}");
 
@@ -42,7 +42,8 @@ namespace EduPlatform.Presentation.Middlewares
 
         private async Task<string> FormatResponse(HttpResponse response)
         {
-            response.Body.Seek(0, SeekOrigin.Begin);
+            response.Body.Seek(0, SeekOrigin.Begin);   // reset the position of the stream to the beginning
+            //response.Body.Position = 0;
             var text = await new StreamReader(response.Body).ReadToEndAsync();
             response.Body.Seek(0, SeekOrigin.Begin);
             return $"{response.StatusCode}: {text}";

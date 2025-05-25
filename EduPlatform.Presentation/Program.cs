@@ -3,10 +3,8 @@ using EduPlatform.Application.Extensions;
 using EduPlatform.Infrastructure.Extensions;
 using EduPlatform.Presentation.Middlewares;
 using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.AspNetCore.Diagnostics;
 using Serilog;
 using Serilog.Templates;
-using System.Net;
 
 namespace EduPlatform.Presentation
 {
@@ -15,8 +13,7 @@ namespace EduPlatform.Presentation
         public static void Main(string[] args)
         {
 
-
-            //Configure Serilog with the settings
+            // Configure Serilog with the settings, used to log during startup (before the app is built)
             Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
             .WriteTo.Debug()
@@ -34,6 +31,7 @@ namespace EduPlatform.Presentation
 
             // Add services to the container.
 
+            // Register Application Insights telemetry for monitoring and logging.
             builder.Services.AddApplicationInsightsTelemetry();
 
 
