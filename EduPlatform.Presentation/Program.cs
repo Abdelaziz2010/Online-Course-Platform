@@ -40,10 +40,8 @@ namespace EduPlatform.Presentation
             .ReadFrom.Services(services)
             .WriteTo.Console(new ExpressionTemplate(
                 // Include trace and span ids when present.
-                "[{@t:HH:mm:ss} {@l:u3}{#if @tr is not null} ({substring(@tr,0,4)}:{substring(@sp,0,4)}){#end}] {@m}\n{@x}"))
-            .WriteTo.ApplicationInsights(
-              services.GetRequiredService<TelemetryConfiguration>(),TelemetryConverter.Traces));
-
+                "[{@t:HH:mm:ss} {@l:u3}{#if @tr is not null} ({substring(@tr,0,4)}:{substring(@sp,0,4)}){#end}] {@m}\n{@x}")));
+            
             Log.Information("Starting the EduPlatform API.....");
 
 
@@ -66,10 +64,11 @@ namespace EduPlatform.Presentation
             
             var app = builder.Build();
 
-            // enable custom middlewares
+            
             // Global exception handling middleware
             app.UseMiddleware<GlobalExceptionMiddleware>();
 
+            // Middlewares for logging request and response details.
             app.UseMiddleware<RequestResponseLoggingMiddleware>();
             app.UseMiddleware<RequestBodyLoggingMiddleware>();
             app.UseMiddleware<ResponseBodyLoggingMiddleware>();
