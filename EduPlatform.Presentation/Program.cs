@@ -67,6 +67,8 @@ namespace EduPlatform.Presentation
             var app = builder.Build();
 
             // enable custom middlewares
+            // Global exception handling middleware
+            app.UseMiddleware<GlobalExceptionMiddleware>();
 
             app.UseMiddleware<RequestResponseLoggingMiddleware>();
             app.UseMiddleware<RequestBodyLoggingMiddleware>();
