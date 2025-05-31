@@ -3,6 +3,9 @@ using EduPlatform.Application.Extensions;
 using EduPlatform.Infrastructure.Extensions;
 using EduPlatform.Presentation.Middlewares;
 using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Identity.Web;
+using Microsoft.IdentityModel.Logging;
 using Serilog;
 using Serilog.Templates;
 
@@ -45,6 +48,55 @@ namespace EduPlatform.Presentation
             Log.Information("Starting the EduPlatform API.....");
 
 
+            #region Azure AD B2C configuration
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+              .AddMicrosoftIdentityWebApi(options =>
+              {
+                  configuration.Bind("AzureADB2C", options);
+
+                  options.Events = new JwtBearerEvents
+                  {
+                      OnTokenValidated = context =>
+                      {
+                          var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+
+                          // Access the scope claim (scp) directly
+                          var scopeClaim = context.Principal?.Claims.FirstOrDefault(c => c.Type == "scp")?.Value;
+
+                          if (scopeClaim != null)
+                          {
+                              logger.LogInformation("Scope found in token: {Scope}", scopeClaim);
+                          }
+                          else
+                          {
+                              logger.LogWarning("Scope claim not found in token.");
+                          }
+
+                          return Task.CompletedTask;
+                      },
+                      OnAuthenticationFailed = context =>
+                      {
+                          var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+                          logger.LogError("Authentication failed: {Message}", context.Exception.Message);
+                          return Task.CompletedTask;
+                      },
+                      OnChallenge = context =>
+                      {
+                          var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+                          logger.LogError("Challenge error: {ErrorDescription}", context.ErrorDescription);
+                          return Task.CompletedTask;
+                      }
+                  };
+              }, options => { configuration.Bind("AzureADB2C", options); });
+
+            // The following flag can be used to get more descriptive errors in development environments
+
+            IdentityModelEventSource.ShowPII = true;
+
+            #endregion Azure AD B2C configuration
+
+
             builder.Services.AddControllers();
           
             builder.Services.AddOpenApi();
@@ -84,9 +136,16 @@ namespace EduPlatform.Presentation
             
             app.UseHttpsRedirection();
 
-            app.UseMiddleware<SecurityHeadersMiddleware>();
+            #region  Azure AD B2C
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
+            
+            #endregion  Azure AD B2C
+
+
+            app.UseMiddleware<SecurityHeadersMiddleware>();
 
             app.MapControllers();
 
