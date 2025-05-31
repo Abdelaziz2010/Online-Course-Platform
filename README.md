@@ -159,10 +159,11 @@ The platform also supports real-time interaction to promote active learning and 
 - **Azure AD B2C:** For user authentication and authorization.
 - **Azure SQL Server:** For relational database management and data storage.
 - **Azure Blob Storage:** For storing media files and other static content.
-- **SendGrid:** For sending email notifications.
+- **SendGrid:** For sending email notifications when a video request is added or updated in VideoRequest table in databa0se.
 - **Stripe:** For secure payment processing.
 - **Application Insights:** For monitoring application performance and user behavior.
 - **Serilog:** For structured logging and diagnostics.
 - **Azure Key Vault:** For securely storing application secrets and sensitive data.
-- **Azure DevOps:** For source code management, CI/CD pipelines, and project management.
+- **Azure DevOps:** For source code management, CI/CD pipelines.
 - **Azure Web App:** For hosting the application in a scalable and managed environment.
+- **Azure Function App:** For running multiple Azure Functions For Background Jobs and serverless computing tasks.
