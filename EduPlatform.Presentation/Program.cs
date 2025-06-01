@@ -1,7 +1,6 @@
-using Ecom.Presentation.Middlewares;
+using EduPlatform.Presentation.Middlewares;
 using EduPlatform.Application.Extensions;
 using EduPlatform.Infrastructure.Extensions;
-using EduPlatform.Presentation.Middlewares;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
@@ -152,7 +151,6 @@ namespace EduPlatform.Presentation
             app.Run(); 
 
             #endregion
-
         }
     }
 }

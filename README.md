@@ -159,7 +159,7 @@ The platform also supports real-time interaction to promote active learning and 
 - **Azure AD B2C:** For user authentication and authorization.
 - **Azure SQL Server:** For relational database management and data storage.
 - **Azure Blob Storage:** For storing media files and other static content.
-- **SendGrid:** For sending email notifications when a video request is added or updated in VideoRequest table in databa0se.
+- **SendGrid:** For sending email notifications when a video request is added or updated in VideoRequest table in database.
 - **Stripe:** For secure payment processing.
 - **Application Insights:** For monitoring application performance and user behavior.
 - **Serilog:** For structured logging and diagnostics.

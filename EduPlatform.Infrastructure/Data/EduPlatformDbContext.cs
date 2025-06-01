@@ -39,6 +39,7 @@ namespace EduPlatform.Infrastructure.Data
         public virtual DbSet<VideoRequest> VideoRequests { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Course>(entity =>
@@ -214,6 +215,7 @@ namespace EduPlatform.Infrastructure.Data
                 entity.HasKey(e => e.VideoRequestId).HasName("PK_VideoRequests_VideoRequestId");
 
                 entity.Property(e => e.RequestDescription).HasMaxLength(4000);
+                entity.Property(e => e.RequestStatus).HasMaxLength(50).HasDefaultValue("Requested");
                 entity.Property(e => e.Response).HasMaxLength(4000);
                 entity.Property(e => e.ShortTitle).HasMaxLength(200);
                 entity.Property(e => e.SubTopic).HasMaxLength(50);
@@ -228,6 +230,7 @@ namespace EduPlatform.Infrastructure.Data
 
             OnModelCreatingPartial(modelBuilder);
         }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

@@ -90,6 +90,10 @@ namespace EduPlatform.Presentation.Controllers
         public IActionResult GetVideoRequests()
         {
             var videoRequests = _context.VideoRequests.ToList();
+            //if (videoRequests == null)
+            //{
+            //    return NotFound("No video requests found.");
+            //}
             return Ok(videoRequests);
         }
         
@@ -109,5 +113,10 @@ namespace EduPlatform.Presentation.Controllers
             return Ok(userRoles);
         }
 
+        [HttpGet("Throw_Exception")]
+        public IActionResult Throw()
+        {
+            throw new Exception("Test exception from controller");
+        }
     }
 }

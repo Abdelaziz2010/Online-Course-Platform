@@ -1,4 +1,4 @@
-﻿namespace Ecom.Presentation.Middlewares
+﻿namespace EduPlatform.Presentation.Middlewares
 {
     public class SecurityHeadersMiddleware
     {

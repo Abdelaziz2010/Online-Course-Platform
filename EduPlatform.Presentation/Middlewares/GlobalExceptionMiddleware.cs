@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace EduPlatform.Presentation.Middlewares
 {
-    // This middleware handles global exceptions in the application.
+    // this middleware is used to handle global exceptions in the applicationd
     public class GlobalExceptionMiddleware
     {
         private readonly RequestDelegate _next;
