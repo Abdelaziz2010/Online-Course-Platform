@@ -1,4 +1,5 @@
 ﻿
+using EduPlatform.Application.DTOs.VideoRequest;
 using EduPlatform.Application.Interfaces.Repositories;
 using EduPlatform.Domain.Entities;
 using EduPlatform.Infrastructure.Data;
@@ -15,7 +16,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
             _context = context;
         }
 
-        public async Task<IReadOnlyList<VideoRequest?>> GetAllAsync()
+        public async Task<IReadOnlyList<VideoRequest>> GetAllAsync()
         {
             return await _context.VideoRequests
                 .Include(vr => vr.User)
@@ -31,7 +32,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
                 .FirstOrDefaultAsync(vr => vr.VideoRequestId == id);
         }
 
-        public async Task<IReadOnlyList<VideoRequest?>> GetByUserIdAsync(int userId)
+        public async Task<IReadOnlyList<VideoRequest>> GetByUserIdAsync(int userId)
         {
             return await _context.VideoRequests
                 .Include(vr => vr.User)
@@ -47,15 +48,10 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
             return videoRequest;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(VideoRequest videoRequest)
         {
-            var videoRequest = await GetByIdAsync(id);
-           
-            if (videoRequest != null) 
-            {
-                _context.VideoRequests.Remove(videoRequest);
-                await _context.SaveChangesAsync();
-            }
+            _context.VideoRequests.Remove(videoRequest);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<VideoRequest> UpdateAsync(VideoRequest videoRequest)

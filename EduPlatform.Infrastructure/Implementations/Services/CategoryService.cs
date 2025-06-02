@@ -6,10 +6,9 @@ using EduPlatform.Application.Interfaces.Services;
 
 namespace EduPlatform.Infrastructure.Implementations.Services
 {
-    internal class CategoryService : ICategoryService
+    public class CategoryService : ICategoryService
     {
         private readonly IUnitOfWork _unitOfWork;
-        //mapper
         private readonly IMapper _mapper;
         public CategoryService(IUnitOfWork unitOfWork, IMapper mapper)
         {
