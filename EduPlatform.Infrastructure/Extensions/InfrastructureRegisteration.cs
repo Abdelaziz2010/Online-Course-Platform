@@ -31,7 +31,7 @@ namespace EduPlatform.Infrastructure.Extensions
 
             services.AddScoped<ICourseService, CourseService>();
 
-
+            services.AddScoped<IVideoRequestService, VideoRequestService>();
 
             return services;
         }

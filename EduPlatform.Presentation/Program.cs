@@ -1,12 +1,12 @@
 using EduPlatform.Presentation.Middlewares;
 using EduPlatform.Application.Extensions;
 using EduPlatform.Infrastructure.Extensions;
-using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.Logging;
 using Serilog;
 using Serilog.Templates;
+using EduPlatform.Presentation.Extensions;
 
 namespace EduPlatform.Presentation
 {
@@ -103,6 +103,8 @@ namespace EduPlatform.Presentation
             builder.Services.AddEndpointsApiExplorer();
             
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddPresentationServices();
 
             builder.Services.AddInfrastructureServices(configuration);
 

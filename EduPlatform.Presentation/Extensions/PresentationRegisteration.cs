@@ -1,4 +1,4 @@
-﻿using Microsoft.IdentityModel.Logging;
+﻿using EduPlatform.Presentation.Common;
 
 namespace EduPlatform.Presentation.Extensions
 {
@@ -7,6 +7,7 @@ namespace EduPlatform.Presentation.Extensions
         public static IServiceCollection AddPresentationServices(this IServiceCollection services)
         {
             // Register the services
+            services.AddScoped<IUserClaims, UserClaims>();
 
             return services;
         }
