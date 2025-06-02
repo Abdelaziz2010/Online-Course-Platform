@@ -8,8 +8,9 @@ namespace EduPlatform.Application.DTOs.VideoRequest
         public int VideoRequestId { get; set; }
         
         public int UserId { get; set; }
-        
-        public string? UserName { get; set; }
+
+        // for automapper, we need to tell it how to map this property.
+        public string? UserName { get; set; }  // this is just to send user's info back but not an input
 
         [Required]
         [StringLength(50)]
