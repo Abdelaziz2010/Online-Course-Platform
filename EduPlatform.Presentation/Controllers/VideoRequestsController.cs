@@ -1,34 +1,51 @@
 ﻿using EduPlatform.Application.DTOs.VideoRequest;
 using EduPlatform.Application.Interfaces.Services;
+using EduPlatform.Presentation.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web.Resource;
+using System.Collections.Generic;
 
 namespace EduPlatform.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class VideoRequestsController : ControllerBase
     {
         // This controller is responsible for handling video request related operations.
         private readonly IVideoRequestService _videoRequestService;
-        public VideoRequestsController(IVideoRequestService videoRequestService)
+        private readonly IUserClaims _userClaims; 
+        public VideoRequestsController(IVideoRequestService videoRequestService, IUserClaims userClaims)
         {
             _videoRequestService = videoRequestService;
+            _userClaims = userClaims;
         }
         
         [HttpGet("Get-All-Video-Requests")]
+        [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Read")]
+        // This endpoint retrieves all video requests. Admins can see all requests, while regular users can only see their own.
         public async Task<ActionResult<IReadOnlyList<VideoRequestDTO>>> GetAllAsync()
         {
-            var videoRequests = await _videoRequestService.GetAllVideoRequestsAsync();
+            IReadOnlyList<VideoRequestDTO> videoRequests;
 
-            if (!videoRequests.Any())
+            var userRoles = _userClaims.GetUserRoles();
+
+            if(userRoles.Contains("Admin"))
             {
-                return NotFound("No video requests found.");
+                videoRequests = await _videoRequestService.GetAllVideoRequestsAsync();
+            }
+            else
+            {
+                var userId = _userClaims.GetUserId();
+                videoRequests = await _videoRequestService.GetVideoRequestsByUserIdAsync(userId);
             }
 
             return Ok(videoRequests);
         }
 
         [HttpGet("Get-Video-Request-By-Id/{id}")]
+        [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Read")]
         public async Task<ActionResult<VideoRequestDTO?>> GetByIdAsync(int id)
         {
             var videoRequest = await _videoRequestService.GetVideoRequestByIdAsync(id);
@@ -42,6 +59,7 @@ namespace EduPlatform.Presentation.Controllers
         }
 
         [HttpGet("Get-Video-Requests-By-User-Id/{userId}")]
+        [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Read")]
         public async Task<ActionResult<IReadOnlyList<VideoRequestDTO>>> GetByUserIdAsync(int userId)
         {
             var videoRequests = await _videoRequestService.GetVideoRequestsByUserIdAsync(userId);
@@ -55,6 +73,7 @@ namespace EduPlatform.Presentation.Controllers
         }
 
         [HttpPost("Create-Video-Request")]
+        [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")]
         public async Task<ActionResult<VideoRequestDTO>> CreateAsync([FromBody] VideoRequestDTO videoRequest)
         {
             var createdVideoRequest = await _videoRequestService.CreateVideoRequestAsync(videoRequest);
@@ -63,6 +82,7 @@ namespace EduPlatform.Presentation.Controllers
         }
 
         [HttpPut("Update-Video-Request/{id}")]
+        [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")]
         public async Task<ActionResult<VideoRequestDTO>> UpdateAsync(int id, [FromBody] VideoRequestDTO videoRequest)
         {
             if (id != videoRequest.VideoRequestId)
@@ -83,6 +103,7 @@ namespace EduPlatform.Presentation.Controllers
         }
 
         [HttpDelete("Delete-Video-Request/{id}")]
+        [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")] 
         public async Task<IActionResult> DeleteAsync(int id)
         {
             try

@@ -15,6 +15,7 @@ namespace EduPlatform.Presentation.Common
         {
             return GetCurrentUserId();
         }
+
         private string GetClaimInfo(string property)
         {
             var propertyData = "";
@@ -23,10 +24,7 @@ namespace EduPlatform.Presentation.Common
 
             if (identity != null)
             {
-                IEnumerable<Claim> claims = identity.Claims;
-                // or
                 propertyData = identity.Claims.FirstOrDefault(d => d.Type.Contains(property))?.Value;
-
             }
 
             return propertyData;
@@ -41,6 +39,7 @@ namespace EduPlatform.Presentation.Common
         {
             return GetClaimInfo("objectidentifier");
         }
+
         public List<string> GetUserRoles()
         {
             var roles = GetClaimInfo("extension_userRoles"); ;
