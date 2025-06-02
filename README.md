@@ -1,5 +1,27 @@
 ﻿# EduPlatform {{Project Under Construction}}
 
+
+[![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
+[![SQL Server](https://img.shields.io/badge/SQL_Server-2019+-CC2927?logo=microsoft-sql-server)](https://www.microsoft.com/sql-server)
+[![Stripe](https://img.shields.io/badge/Stripe-626CD9?logo=stripe&logoColor=white)](https://stripe.com)
+[![Entity Framework](https://img.shields.io/badge/Entity_Framework_Core-8.0-6DB33F?logo=ef&logoColor=white)](https://docs.microsoft.com/ef/)
+[![Postman](https://img.shields.io/badge/Postman-API-orange?logo=postman)](https://www.postman.com/)
+[![Swagger](https://img.shields.io/badge/Swagger-UI-85EA2D?logo=swagger)](https://swagger.io/)
+[![AutoMapper](https://img.shields.io/badge/AutoMapper-9.0-FF6F00?logo=automapper&logoColor=white)](https://automapper.org/)
+[![Serilog](https://img.shields.io/badge/Serilog-Logging-2B2E3A?logo=serilog&logoColor=white)](https://serilog.net/)
+[![SendGrid](https://img.shields.io/badge/SendGrid-Email-21A7FF?logo=sendgrid&logoColor=white)](https://sendgrid.com/)
+
+
+[![Azure](https://img.shields.io/badge/Azure-Cloud-0078D4?logo=microsoft-azure&logoColor=white)](https://azure.microsoft.com/)
+[![Azure AD B2C](https://img.shields.io/badge/Azure_AD_B2C-Identity-0078D4?logo=microsoft-azure&logoColor=white)](https://learn.microsoft.com/azure/active-directory-b2c/)
+[![Azure SQL](https://img.shields.io/badge/Azure_SQL-Database-0078D4?logo=microsoft-azure&logoColor=white)](https://azure.microsoft.com/products/azure-sql/)
+[![Azure Blob Storage](https://img.shields.io/badge/Azure_Blob_Storage-Storage-0078D4?logo=microsoft-azure&logoColor=white)](https://azure.microsoft.com/products/storage/blobs/)
+[![Azure Functions](https://img.shields.io/badge/Azure_Functions-Serverless-0062AD?logo=azure-functions&logoColor=white)](https://azure.microsoft.com/products/functions/)
+[![Azure DevOps](https://img.shields.io/badge/Azure_DevOps-CI/CD-0078D7?logo=azure-devops&logoColor=white)](https://azure.microsoft.com/services/devops/)
+[![Azure Web App](https://img.shields.io/badge/Azure_Web_App-Hosting-0078D4?logo=microsoft-azure&logoColor=white)](https://azure.microsoft.com/products/app-service/)
+[![Application Insights](https://img.shields.io/badge/Application_Insights-Monitoring-68217A?logo=microsoft-azure&logoColor=white)](https://azure.microsoft.com/products/monitor/)
+
+
 # Project Overview
 
 EduPlatform is a learning management system designed to simplify and enhance the online education experience 
