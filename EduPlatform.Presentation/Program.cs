@@ -105,7 +105,7 @@ namespace EduPlatform.Presentation
 
                 builder.Services.AddSwaggerGen();
 
-                builder.Services.AddPresentationServices();
+                builder.Services.AddPresentationServices(configuration);
 
                 builder.Services.AddInfrastructureServices(configuration);
 
@@ -146,6 +146,7 @@ namespace EduPlatform.Presentation
 
                 #endregion  Azure AD B2C
 
+                app.UseHealthChecks("/health");
 
                 app.UseMiddleware<SecurityHeadersMiddleware>();
 
