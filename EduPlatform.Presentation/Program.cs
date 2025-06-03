@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Logging;
 using Serilog;
 using Serilog.Templates;
 using EduPlatform.Presentation.Extensions;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 namespace EduPlatform.Presentation
 {
@@ -147,6 +148,19 @@ namespace EduPlatform.Presentation
                 #endregion  Azure AD B2C
 
                 app.UseHealthChecks("/health");
+
+                // check Readiness of the application
+                app.UseHealthChecks("/health/ready", new HealthCheckOptions
+                {
+                    Predicate = check => check.Name == "self" || check.Name == "sqlserver"
+                });
+
+                // check Liveness of the application
+                app.UseHealthChecks("/health/live", new HealthCheckOptions
+                {
+                    Predicate = check => check.Name == "self"
+                });
+
 
                 app.UseMiddleware<SecurityHeadersMiddleware>();
 
