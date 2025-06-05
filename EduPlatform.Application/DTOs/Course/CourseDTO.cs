@@ -22,12 +22,16 @@ namespace EduPlatform.Application.DTOs.Course
 
         public int InstructorId { get; set; }
 
+        public int InstructorUserId { get; set; }
+        
+        public string? Thumbnail { get; set; }
+
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
 
-        public virtual CategoryDTO Category { get; set; } = null!; // I want to show the category for each course.
+        public virtual CategoryDTO? Category { get; set; } = null!; // I want to show the category for each course.
 
-        public UserRatingDTO UserRatingDTO { get; set; } = null!;  // I want to gather the average rating for each course.
+        public UserRatingDTO? UserRatingDTO { get; set; } = null!;  // I want to gather the average rating for each course.
     }
 }
