@@ -16,9 +16,8 @@ namespace EduPlatform.Presentation.Extensions
                        healthQuery: "SELECT 1;", // Query to check database health.
                        name: "sqlserver",
                        failureStatus: HealthStatus.Degraded, // Degraded health status if the check fails.
-                       tags: new[] { "db", "sql" });
-                   //.AddCheck("Memory", new PrivateMemoryHealthCheck(1024 * 1024 * 1024)); // A custom health check for memory.
-
+                       tags: new[] { "db", "sql" })
+                   .AddCheck("Memory", new ManagedMemoryHealthCheck(1024 * 1024 * 1024)); // A custom health check for managed memory.
 
             return services;
         }
