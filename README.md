@@ -10,6 +10,7 @@
 [![AutoMapper](https://img.shields.io/badge/AutoMapper-9.0-FF6F00?logo=automapper&logoColor=white)](https://automapper.org/)
 [![Serilog](https://img.shields.io/badge/Serilog-Logging-2B2E3A?logo=serilog&logoColor=white)](https://serilog.net/)
 [![SendGrid](https://img.shields.io/badge/SendGrid-Email-21A7FF?logo=sendgrid&logoColor=white)](https://sendgrid.com/)
+[![Health Check](https://img.shields.io/badge/Health_Check-Healthy-44cc11?logo=heartbeat&logoColor=white)](https://learn.microsoft.com/aspnet/core/host-and-deploy/health-checks)
 
 
 [![Azure](https://img.shields.io/badge/Azure-Cloud-0078D4?logo=microsoft-azure&logoColor=white)](https://azure.microsoft.com/)
@@ -149,7 +150,7 @@ The platform also supports real-time interaction to promote active learning and 
 
 **Monitoring:** Application Insights 
 
-**Notifications:** SendGrid  
+**Emails and Notifications:** SendGrid  
 
 **Real-Time Communication:** SignalR  
 
@@ -160,8 +161,6 @@ The platform also supports real-time interaction to promote active learning and 
 **Source Code Management:** Azure DevOps
 
 **CI/CD:** Azure DevOps
-
-**Containerization:** Docker for containerizing the application, ensuring consistency across different environments.
 
 **WorkFlow Automation:** Azure Logic Apps for automating workflows and integrating with other services.
 
@@ -189,3 +188,4 @@ The platform also supports real-time interaction to promote active learning and 
 - **Azure DevOps:** For source code management, CI/CD pipelines.
 - **Azure Web App:** For hosting the application in a scalable and managed environment.
 - **Azure Function App:** For running multiple Azure Functions For Background Jobs and serverless computing tasks.
+- **Health Check:** For monitoring the health of the application and its dependencies and to check the Liveness and Readiness.

@@ -7,6 +7,8 @@ using Microsoft.IdentityModel.Logging;
 using Serilog;
 using Serilog.Templates;
 using EduPlatform.Presentation.Extensions;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using EduPlatform.Presentation.Common;
 
 namespace EduPlatform.Presentation
 {
@@ -105,7 +107,7 @@ namespace EduPlatform.Presentation
 
                 builder.Services.AddSwaggerGen();
 
-                builder.Services.AddPresentationServices();
+                builder.Services.AddPresentationServices(configuration);
 
                 builder.Services.AddInfrastructureServices(configuration);
 
@@ -145,6 +147,42 @@ namespace EduPlatform.Presentation
                 app.UseAuthorization();
 
                 #endregion  Azure AD B2C
+
+
+                #region Health Check
+
+                // Top-level route mapping for health checks
+                app.MapHealthChecks("/health", new HealthCheckOptions
+                {
+                    ResponseWriter = HealthCheckResponseWriter.WriteJsonResponse
+                });
+
+
+                // Liveness probe, Purpose: Tells if the app is running.
+                app.MapHealthChecks("/health/live", new HealthCheckOptions
+                {
+                    Predicate = _ => false, // No specific checks, just indicates the app is live
+                    ResponseWriter = async (context, report) =>
+                    {
+                        context.Response.ContentType = "application/json";
+                        var json = new
+                        {
+                            status = report.Status.ToString(),
+                            description = "Liveness check - the app is up"
+                        };
+                        await context.Response.WriteAsJsonAsync(json);
+                    }
+                });
+
+
+                // Readiness probe, Tells if the app is ready to handle requests
+                app.MapHealthChecks("/health/ready", new HealthCheckOptions
+                {
+                    Predicate = check => check.Tags.Contains("ready"), // Only run checks tagged as "ready"
+                    ResponseWriter = HealthCheckResponseWriter.WriteJsonResponse
+                }); 
+
+                #endregion
 
 
                 app.UseMiddleware<SecurityHeadersMiddleware>();
