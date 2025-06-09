@@ -33,6 +33,8 @@ namespace EduPlatform.Infrastructure.Extensions
 
             services.AddScoped<IVideoRequestService, VideoRequestService>();
 
+            services.AddScoped<IEmailNotification, EmailNotification>();
+
             return services;
         }
     }
