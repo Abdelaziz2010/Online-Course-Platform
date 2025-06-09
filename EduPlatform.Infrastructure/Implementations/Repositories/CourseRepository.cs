@@ -1,6 +1,7 @@
 ﻿using EduPlatform.Application.DTOs.Category;
 using EduPlatform.Application.DTOs.Course;
 using EduPlatform.Application.Interfaces.Repositories;
+using EduPlatform.Domain.Entities;
 using EduPlatform.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +15,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
             _context = context;
         }
 
-        public async Task<List<CourseDTO>> GetAllCoursesAsync(int? categoryId = null)
+        public async Task<IReadOnlyList<CourseDTO>> GetAllCoursesAsync(int? categoryId = null)
         {
             var courses = _context.Courses
                 .Include(c => c.Category)  //pull the category
@@ -110,6 +111,65 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
                 }).FirstOrDefaultAsync();
 
             return course;
+        }
+
+        public async Task<Course> GetCourseByIdAsync(int courseId)
+        {
+            var course = await _context.Courses
+                .Include(c => c.SessionDetails)  //pull Session Details
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.CourseId == courseId);
+
+            return course;
+        }
+
+        public async Task AddCourseAsync(Course course)
+        {
+            await _context.Courses.AddAsync(course);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateCourseAsync(Course course)
+        {
+            _context.Courses.Update(course);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteCourseAsync(int courseId)
+        {
+            var course = await GetCourseByIdAsync(courseId);
+           
+            if (course != null)
+            {
+                _context.Courses.Remove(course);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public void RemoveSessionDetail(SessionDetail sessionDetail)
+        {
+             _context.SessionDetails.Remove(sessionDetail);
+        }
+
+        public async Task<IReadOnlyList<Instructor>> GetAllInstructorsAsync()
+        {
+            var instructors = await _context.Instructors
+                .AsNoTracking()
+                .ToListAsync();
+
+            return instructors;
+        }
+
+        public async Task<bool> UpdateCourseThumbnail(string courseThumbnailUrl, int courseId)
+        {
+            var course = await _context.Courses.FindAsync(courseId);
+
+            if(course != null)
+            {
+                course.Thumbnail = courseThumbnailUrl;                
+            }
+
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }
