@@ -1,5 +1,4 @@
-﻿
-using EduPlatform.Application.Interfaces.Repositories;
+﻿using EduPlatform.Application.Interfaces.Repositories;
 using EduPlatform.Domain.Entities;
 using EduPlatform.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +19,6 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
             return await _context.Reviews
                 .Include(r => r.Course)
                 .Include(r => r.User)
-                .AsNoTracking()
                 .FirstOrDefaultAsync(r => r.ReviewId == reviewId);
         }
 
