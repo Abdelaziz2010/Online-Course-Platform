@@ -18,6 +18,7 @@ namespace EduPlatform.Presentation.Controllers
             _reviewService = reviewService;
         }
 
+
         /// <summary>
         /// Get a review by its ID
         /// </summary>
@@ -43,6 +44,7 @@ namespace EduPlatform.Presentation.Controllers
             }
         }
 
+
         /// <summary>
         /// Get all reviews for a specific course
         /// </summary>
@@ -62,6 +64,7 @@ namespace EduPlatform.Presentation.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
         /// <summary>
         /// Get all reviews for a specific user
@@ -83,6 +86,7 @@ namespace EduPlatform.Presentation.Controllers
             }
         }
 
+
         /// <summary>
         /// Create a new review
         /// </summary>
@@ -96,13 +100,14 @@ namespace EduPlatform.Presentation.Controllers
                 await _reviewService.AddReviewAsync(createReviewDto);
 
                 // Return created at action with the new resource URL
-                return CreatedAtAction(nameof(GetReviewByIdAsync), new { reviewId = 0 }, createReviewDto);
+                return Created();
             }
             catch (Exception ex) when (ex is ArgumentException || ex is ArgumentNullException || ex is ValidationException)
             {
                 return BadRequest(ex.Message);
             }
         }
+
 
         /// <summary>
         /// Update an existing review
@@ -133,6 +138,7 @@ namespace EduPlatform.Presentation.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
         /// <summary>
         /// Delete a review
