@@ -18,8 +18,8 @@ namespace EduPlatform.Presentation.Controllers
         }
 
         [HttpPost("Send-Message")]
-        public async Task<IActionResult> SendMessage([FromBody] ContactMessageDTO contactMessage)
-        {
+        public async Task<IActionResult> SendMessageAsync([FromBody] ContactMessageDTO contactMessage)
+        { 
             if (contactMessage == null)
             {
                 return BadRequest("Contact message cannot be null.");

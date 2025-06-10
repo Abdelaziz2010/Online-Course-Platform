@@ -24,7 +24,6 @@ namespace EduPlatform.Infrastructure.Implementations.Services
             var sendGridMessage = new SendGridMessage()
             {
                 From = from,
-                ReplyTo = to,
                 Subject = "Contact page: Received a request from user"
             };
 
@@ -36,7 +35,7 @@ namespace EduPlatform.Infrastructure.Implementations.Services
 
             var response = await new SendGridClient(apiKey).SendEmailAsync(sendGridMessage).ConfigureAwait(false);
            
-            Console.WriteLine($"Response: {response.StatusCode}");
+            Console.WriteLine($"SendGrid Response: {response.StatusCode}");
             
             Console.WriteLine(response.Headers);
 
