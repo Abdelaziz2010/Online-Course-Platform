@@ -1,5 +1,4 @@
-﻿
-using EduPlatform.Application.DTOs.Course;
+﻿using EduPlatform.Application.DTOs.Course;
 
 namespace EduPlatform.Application.Interfaces.Services
 {
@@ -8,7 +7,7 @@ namespace EduPlatform.Application.Interfaces.Services
         Task<ReviewDTO?> GetReviewByIdAsync(int reviewId); 
         Task<IReadOnlyList<ReviewDTO>> GetReviewsByCourseIdAsync(int courseId);
         Task<IReadOnlyList<ReviewDTO>> GetUserReviewsAsync(int userId);
-        Task AddReviewAsync(ReviewDTO review);
+        Task AddReviewAsync(CreateReviewDTO review);
         Task UpdateReviewAsync(ReviewDTO review);
         Task DeleteReviewAsync(int reviewId);
     }

@@ -8,7 +8,7 @@ namespace EduPlatform.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ReviewsController : ControllerBase
     {
         private readonly IReviewService _reviewService;
@@ -89,14 +89,14 @@ namespace EduPlatform.Presentation.Controllers
         [HttpPost("Create-Review")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ReviewDTO>> CreateReviewAsync([FromBody] ReviewDTO reviewDto)
+        public async Task<ActionResult> CreateReviewAsync([FromBody] CreateReviewDTO createReviewDto)
         {
             try
             {
-                await _reviewService.AddReviewAsync(reviewDto);
-                
+                await _reviewService.AddReviewAsync(createReviewDto);
+
                 // Return created at action with the new resource URL
-                return CreatedAtAction(nameof(GetReviewByIdAsync), new { reviewId = reviewDto.ReviewId }, reviewDto);
+                return CreatedAtAction(nameof(GetReviewByIdAsync), new { reviewId = 0 }, createReviewDto);
             }
             catch (Exception ex) when (ex is ArgumentException || ex is ArgumentNullException || ex is ValidationException)
             {

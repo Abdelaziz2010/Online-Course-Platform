@@ -64,11 +64,11 @@ namespace EduPlatform.Infrastructure.Implementations.Services
             return _mapper.Map<IReadOnlyList<ReviewDTO>>(reviews);
         }
 
-        public async Task AddReviewAsync(ReviewDTO reviewDto)
+        public async Task AddReviewAsync(CreateReviewDTO createReviewDto)
         {
-            ValidateReview(reviewDto);
+            ValidateReview(createReviewDto);
 
-            var review = _mapper.Map<Review>(reviewDto);
+            var review = _mapper.Map<Review>(createReviewDto);
 
             review.ReviewDate = DateTime.UtcNow;
 
@@ -115,6 +115,36 @@ namespace EduPlatform.Infrastructure.Implementations.Services
         }
 
         private void ValidateReview(ReviewDTO review)
+        {
+            ArgumentNullException.ThrowIfNull(review);
+
+            if (review.Rating < 1 || review.Rating > 5)
+            {
+                throw new ValidationException("Rating must be between 1 and 5");
+            }
+
+            if (review.CourseId <= 0)
+            {
+                throw new ValidationException("Invalid course ID");
+            }
+
+            if (review.UserId <= 0)
+            {
+                throw new ValidationException("Invalid user ID");
+            }
+
+            if (string.IsNullOrWhiteSpace(review.UserName))
+            {
+                throw new ValidationException("User name is required");
+            }
+
+            if (review.Comments != null && review.Comments.Length > 2000)
+            {
+                throw new ValidationException("Comments cannot exceed 2000 characters");
+            }
+        }
+
+        private void ValidateReview(CreateReviewDTO review)
         {
             ArgumentNullException.ThrowIfNull(review);
 
