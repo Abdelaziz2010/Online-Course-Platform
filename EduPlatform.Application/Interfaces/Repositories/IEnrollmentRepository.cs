@@ -4,11 +4,11 @@ namespace EduPlatform.Application.Interfaces.Repositories
 {
     public interface IEnrollmentRepository
     {
-        Task<Enrollment?> GetEnrollmentByIdAsync(int enrollmentId); 
-        Task<IReadOnlyList<Enrollment>> GetEnrollmentsByUserIdAsync(int userId);
-        Task<IReadOnlyList<Enrollment>> GetEnrollmentsByCourseIdAsync(int courseId);
-        Task<Enrollment> AddEnrollmentAsync(Enrollment enrollment);
-        Task<Enrollment> UpdateEnrollmentAsync(Enrollment enrollment);
-        Task<bool> DeleteEnrollmentAsync(int enrollmentId);
+        Task<Enrollment?> GetByIdAsync(int enrollmentId); 
+        Task<IReadOnlyList<Enrollment>> GetByUserIdAsync(int userId);
+        Task<IReadOnlyList<Enrollment>> GetByCourseIdAsync(int courseId);
+        Task<Enrollment> AddAsync(Enrollment enrollment);
+        Task<Enrollment> UpdateAsync(Enrollment enrollment);
+        Task<bool> DeleteAsync(int enrollmentId);
     }
 }

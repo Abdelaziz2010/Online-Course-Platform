@@ -13,7 +13,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
             _context = context;
         }
 
-        public async Task<Enrollment?> GetEnrollmentByIdAsync(int enrollmentId)
+        public async Task<Enrollment?> GetByIdAsync(int enrollmentId)
         {
             return await _context.Enrollments
                 .Include(e => e.Payments)
@@ -21,7 +21,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
                 .FirstOrDefaultAsync(e => e.EnrollmentId == enrollmentId); // Returns null if not found
         }
 
-        public async Task<IReadOnlyList<Enrollment>> GetEnrollmentsByUserIdAsync(int userId)
+        public async Task<IReadOnlyList<Enrollment>> GetByUserIdAsync(int userId)
         {
             return await _context.Enrollments
                 .Include(e => e.Payments)
@@ -31,7 +31,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
                 .ToListAsync();    // Returns an empty list if no enrollments found
         }
 
-        public async Task<IReadOnlyList<Enrollment>> GetEnrollmentsByCourseIdAsync(int courseId)
+        public async Task<IReadOnlyList<Enrollment>> GetByCourseIdAsync(int courseId)
         {
             return await _context.Enrollments
                .Include(e => e.Payments)
@@ -40,21 +40,21 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
                .ToListAsync();    // Returns an empty list if no enrollments found
         }
 
-        public async Task<Enrollment> AddEnrollmentAsync(Enrollment enrollment)
+        public async Task<Enrollment> AddAsync(Enrollment enrollment)
         {
             await _context.Enrollments.AddAsync(enrollment);
             await _context.SaveChangesAsync();
             return enrollment;
         }
 
-        public async Task<Enrollment> UpdateEnrollmentAsync(Enrollment enrollment)
+        public async Task<Enrollment> UpdateAsync(Enrollment enrollment)
         {
             _context.Enrollments.Update(enrollment);
             await _context.SaveChangesAsync();
             return enrollment;
         }
 
-        public async Task<bool> DeleteEnrollmentAsync(int enrollmentId)
+        public async Task<bool> DeleteAsync(int enrollmentId)
         {
             var enrollment = await _context.Enrollments.FindAsync(enrollmentId);
             
