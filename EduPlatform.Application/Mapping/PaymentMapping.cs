@@ -10,7 +10,8 @@ namespace EduPlatform.Application.Mapping
         {
             CreateMap<Payment, PaymentDTO>();
 
-            CreateMap<PaymentDTO, Payment>();
+            CreateMap<PaymentDTO, Payment>()
+                .ForMember(dest => dest.Enrollment, op => op.Ignore());
         }
     }
 }

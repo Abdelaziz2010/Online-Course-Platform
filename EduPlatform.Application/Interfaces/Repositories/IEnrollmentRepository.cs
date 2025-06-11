@@ -1,5 +1,4 @@
-﻿
-using EduPlatform.Domain.Entities;
+﻿using EduPlatform.Domain.Entities;
 
 namespace EduPlatform.Application.Interfaces.Repositories
 {
@@ -7,7 +6,8 @@ namespace EduPlatform.Application.Interfaces.Repositories
     {
         Task<Enrollment?> GetEnrollmentByIdAsync(int enrollmentId); 
         Task<IReadOnlyList<Enrollment>> GetEnrollmentsByUserIdAsync(int userId);
-        Task<Enrollment> AddEnrollmentAsync(Enrollment enrollment);
         Task<IReadOnlyList<Enrollment>> GetEnrollmentsByCourseIdAsync(int courseId);
+        Task<Enrollment> AddEnrollmentAsync(Enrollment enrollment);
+        Task<Enrollment> UpdateEnrollmentAsync(Enrollment enrollment);
     }
 }

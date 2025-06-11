@@ -46,5 +46,26 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
             await _context.SaveChangesAsync();
             return enrollment;
         }
+
+        public async Task<Enrollment> UpdateEnrollmentAsync(Enrollment enrollment)
+        {
+            _context.Enrollments.Update(enrollment);
+            await _context.SaveChangesAsync();
+            return enrollment;
+        }
+
+        public async Task<bool> DeleteEnrollmentAsync(int enrollmentId)
+        {
+            var enrollment = await _context.Enrollments.FindAsync(enrollmentId);
+            
+            if (enrollment == null)
+            {
+                return false; // Record not found
+            }
+
+            _context.Enrollments.Remove(enrollment);
+            await _context.SaveChangesAsync();
+            return true; // Deletion successful
+        }
     }
 }
