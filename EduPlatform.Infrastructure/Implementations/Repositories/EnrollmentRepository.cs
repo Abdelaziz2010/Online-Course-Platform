@@ -18,7 +18,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
             return await _context.Enrollments
                 .Include(e => e.Payments)
                 .Include(e => e.Course)
-                .FirstOrDefaultAsync(e => e.EnrollmentId == enrollmentId);
+                .FirstOrDefaultAsync(e => e.EnrollmentId == enrollmentId); // Returns null if not found
         }
 
         public async Task<IReadOnlyList<Enrollment>> GetEnrollmentsByUserIdAsync(int userId)
@@ -28,7 +28,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
                 .Include(e => e.Course)
                 .AsNoTracking()
                 .Where(e => e.UserId == userId)
-                .ToListAsync();
+                .ToListAsync();    // Returns an empty list if no enrollments found
         }
 
         public async Task<IReadOnlyList<Enrollment>> GetEnrollmentsByCourseIdAsync(int courseId)
@@ -37,7 +37,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
                .Include(e => e.Payments)
                .AsNoTracking()
                .Where(e => e.CourseId == courseId)
-               .ToListAsync();
+               .ToListAsync();    // Returns an empty list if no enrollments found
         }
 
         public async Task<Enrollment> AddEnrollmentAsync(Enrollment enrollment)

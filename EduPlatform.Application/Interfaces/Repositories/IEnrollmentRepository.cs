@@ -9,5 +9,6 @@ namespace EduPlatform.Application.Interfaces.Repositories
         Task<IReadOnlyList<Enrollment>> GetEnrollmentsByCourseIdAsync(int courseId);
         Task<Enrollment> AddEnrollmentAsync(Enrollment enrollment);
         Task<Enrollment> UpdateEnrollmentAsync(Enrollment enrollment);
+        Task<bool> DeleteEnrollmentAsync(int enrollmentId);
     }
 }
