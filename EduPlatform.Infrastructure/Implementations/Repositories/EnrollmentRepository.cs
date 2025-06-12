@@ -63,12 +63,21 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
         public async Task<bool> DeleteAsync(int enrollmentId)
         {
             var enrollment = await _context.Enrollments.FindAsync(enrollmentId);
-            
+
             if (enrollment is null)
             {
                 return false; // Record not found
             }
 
+            // delete the related payments first if necessary (Cascade delete)
+            var payments = await _context.Payments.Where(p => p.EnrollmentId == enrollmentId).ToListAsync();
+            
+            if (payments.Any())
+            {
+                _context.Payments.RemoveRange(payments);
+                await _context.SaveChangesAsync(); // Ensure payments are deleted first
+            }
+            
             _context.Enrollments.Remove(enrollment);
             await _context.SaveChangesAsync();
             return true; // Deletion successful
