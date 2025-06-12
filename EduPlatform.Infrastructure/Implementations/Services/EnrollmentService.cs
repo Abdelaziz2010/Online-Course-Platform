@@ -61,6 +61,21 @@ namespace EduPlatform.Infrastructure.Implementations.Services
 
             var enrollment = _mapper.Map<Enrollment>(createEnrollmentDto);
             
+            enrollment.EnrollmentDate = DateTime.UtcNow; // Set the enrollment date to now
+            enrollment.PaymentStatus = "Completed";      // Temporary payment status
+
+            // create a new payment record
+            var payment = new Payment
+            {
+                EnrollmentId = enrollment.EnrollmentId,
+                Amount = 0,                    // For Free 
+                PaymentDate = DateTime.UtcNow,
+                PaymentStatus = "Completed",   // Temporary status
+                PaymentMethod = "Credit Card", // Example payment method, adjust as needed
+            };
+
+            enrollment.Payments.Add(payment);
+
             var result = await _unitOfWork.EnrollmentRepository.AddAsync(enrollment);
                         
             return _mapper.Map<EnrollmentDTO>(result);
@@ -73,9 +88,16 @@ namespace EduPlatform.Infrastructure.Implementations.Services
                 throw new ArgumentNullException(nameof(enrollmentDto), "Enrollment cannot be null");
             }
 
-            var enrollment = _mapper.Map<Enrollment>(enrollmentDto);
+            var existingEnrollment = await _unitOfWork.EnrollmentRepository.GetByIdAsync(enrollmentDto.EnrollmentId);
+           
+            if (existingEnrollment == null)
+            {
+                throw new KeyNotFoundException($"Enrollment with ID {enrollmentDto.EnrollmentId} not found.");
+            }
+
+            _mapper.Map(enrollmentDto, existingEnrollment);
             
-            var result = await _unitOfWork.EnrollmentRepository.UpdateAsync(enrollment);
+            var result = await _unitOfWork.EnrollmentRepository.UpdateAsync(existingEnrollment);
             
             return _mapper.Map<EnrollmentDTO>(result);
         }
