@@ -35,6 +35,8 @@ namespace EduPlatform.Infrastructure.Extensions
 
             services.AddScoped<IReviewService, ReviewService>();
 
+            services.AddScoped<IEnrollmentService, EnrollmentService>();
+
             services.AddScoped<IEmailNotification, EmailNotification>();
 
             return services;
