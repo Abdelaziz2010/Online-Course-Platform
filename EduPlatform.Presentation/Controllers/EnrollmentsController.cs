@@ -24,9 +24,9 @@ namespace EduPlatform.Presentation.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<EnrollmentDTO>> GetEnrollmentByIdAsync(int enrollmentId)
+        public async Task<ActionResult<EnrollmentDTO>> GetEnrollmentById(int enrollmentId)
         {
-            try
+            try 
             {
                 var enrollment = await _enrollmentService.GetEnrollmentByIdAsync(enrollmentId);
                
@@ -49,7 +49,7 @@ namespace EduPlatform.Presentation.Controllers
         [HttpGet("Get-User-Enrollments/{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IReadOnlyList<EnrollmentDTO>>> GetUserEnrollmentsAsync(int userId)
+        public async Task<ActionResult<IReadOnlyList<EnrollmentDTO>>> GetUserEnrollments(int userId)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace EduPlatform.Presentation.Controllers
         [HttpGet("Get-Course-Enrollments/{courseId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IReadOnlyList<EnrollmentDTO>>> GetCourseEnrollmentsAsync(int courseId)
+        public async Task<ActionResult<IReadOnlyList<EnrollmentDTO>>> GetCourseEnrollments(int courseId)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace EduPlatform.Presentation.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<ActionResult<EnrollmentDTO>> CreateEnrollmentAsync(CreateEnrollmentDTO createEnrollmentDto)
+        public async Task<ActionResult<EnrollmentDTO>> CreateEnrollment(CreateEnrollmentDTO createEnrollmentDto)
         {
             try
             {
@@ -100,8 +100,8 @@ namespace EduPlatform.Presentation.Controllers
                 }
 
                 var enrollment = await _enrollmentService.CreateEnrollmentAsync(createEnrollmentDto);
-                
-                return CreatedAtAction(nameof(GetEnrollmentByIdAsync), new { enrollmentId = enrollment.EnrollmentId }, enrollment);
+
+                return CreatedAtAction(nameof(GetEnrollmentById), new { enrollmentId = enrollment.EnrollmentId }, enrollment);
             }
             catch (InvalidOperationException ex) // This exception is thrown if the user is already enrolled in the course
             {
@@ -119,7 +119,7 @@ namespace EduPlatform.Presentation.Controllers
         [HttpPut("Update-Enrollment/{enrollmentId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<EnrollmentDTO>> UpdateEnrollmentAsync(int enrollmentId, EnrollmentDTO enrollmentDto)
+        public async Task<ActionResult<EnrollmentDTO>> UpdateEnrollment(int enrollmentId, EnrollmentDTO enrollmentDto)
         {
             if (enrollmentDto.EnrollmentId != enrollmentId)
             {
@@ -150,7 +150,7 @@ namespace EduPlatform.Presentation.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteEnrollmentAsync(int enrollmentId)
+        public async Task<IActionResult> DeleteEnrollment(int enrollmentId)
         {
             try
             {

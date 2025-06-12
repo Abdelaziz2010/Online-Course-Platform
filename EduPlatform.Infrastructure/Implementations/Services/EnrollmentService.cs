@@ -59,7 +59,7 @@ namespace EduPlatform.Infrastructure.Implementations.Services
                 throw new ArgumentNullException(nameof(createEnrollmentDto), "Enrollment cannot be null");
             }
 
-            // Check for existing enrollment before creating a new one
+            // Check for existing enrollment before creating a new one, to prevent duplicates enrollments
             var existingEnrollment = await _unitOfWork.EnrollmentRepository.GetByCourseAndUserIdAsync(
                 createEnrollmentDto.CourseId,
                 createEnrollmentDto.UserId);
@@ -87,8 +87,10 @@ namespace EduPlatform.Infrastructure.Implementations.Services
             enrollment.Payments.Add(payment);
 
             var result = await _unitOfWork.EnrollmentRepository.AddAsync(enrollment);
-                        
-            return _mapper.Map<EnrollmentDTO>(result);
+
+            var createdEnrollmentWithDetails = await _unitOfWork.EnrollmentRepository.GetByIdAsync(result.EnrollmentId);
+             
+            return _mapper.Map<EnrollmentDTO>(createdEnrollmentWithDetails);
         }
         
         public async Task<EnrollmentDTO> UpdateEnrollmentAsync(EnrollmentDTO enrollmentDto)
