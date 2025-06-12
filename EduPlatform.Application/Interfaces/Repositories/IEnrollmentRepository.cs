@@ -4,7 +4,8 @@ namespace EduPlatform.Application.Interfaces.Repositories
 {
     public interface IEnrollmentRepository
     {
-        Task<Enrollment?> GetByIdAsync(int enrollmentId); 
+        Task<Enrollment?> GetByIdAsync(int enrollmentId);
+        Task<Enrollment?> GetByCourseAndUserIdAsync(int courseId, int userId);
         Task<IReadOnlyList<Enrollment>> GetByUserIdAsync(int userId);
         Task<IReadOnlyList<Enrollment>> GetByCourseIdAsync(int courseId);
         Task<Enrollment> AddAsync(Enrollment enrollment);

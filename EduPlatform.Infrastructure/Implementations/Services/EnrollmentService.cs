@@ -59,6 +59,16 @@ namespace EduPlatform.Infrastructure.Implementations.Services
                 throw new ArgumentNullException(nameof(createEnrollmentDto), "Enrollment cannot be null");
             }
 
+            // Check for existing enrollment before creating a new one
+            var existingEnrollment = await _unitOfWork.EnrollmentRepository.GetByCourseAndUserIdAsync(
+                createEnrollmentDto.CourseId,
+                createEnrollmentDto.UserId);
+
+            if (existingEnrollment != null)
+            {
+                throw new InvalidOperationException($"User {createEnrollmentDto.UserId} is already enrolled in course {createEnrollmentDto.CourseId}");
+            }
+
             var enrollment = _mapper.Map<Enrollment>(createEnrollmentDto);
             
             enrollment.EnrollmentDate = DateTime.UtcNow; // Set the enrollment date to now

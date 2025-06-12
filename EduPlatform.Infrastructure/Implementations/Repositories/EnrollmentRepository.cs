@@ -21,6 +21,12 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
                 .FirstOrDefaultAsync(e => e.EnrollmentId == enrollmentId); // Returns null if not found
         }
 
+        public async Task<Enrollment?> GetByCourseAndUserIdAsync(int courseId, int userId)
+        {
+            return await _context.Enrollments
+                .FirstOrDefaultAsync(e => e.CourseId == courseId && e.UserId == userId); // Returns null if not found
+        }
+
         public async Task<IReadOnlyList<Enrollment>> GetByUserIdAsync(int userId)
         {
             return await _context.Enrollments
