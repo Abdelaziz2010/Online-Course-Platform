@@ -58,7 +58,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
         {
             var enrollment = await _context.Enrollments.FindAsync(enrollmentId);
             
-            if (enrollment == null)
+            if (enrollment is null)
             {
                 return false; // Record not found
             }

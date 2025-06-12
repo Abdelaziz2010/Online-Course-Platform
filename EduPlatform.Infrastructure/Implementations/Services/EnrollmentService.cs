@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using EduPlatform.Application.DTOs.Enrollment;
 using EduPlatform.Application.Interfaces.Repositories;
 using EduPlatform.Application.Interfaces.Services;
@@ -26,7 +25,7 @@ namespace EduPlatform.Infrastructure.Implementations.Services
 
             var enrollment = await _unitOfWork.EnrollmentRepository.GetByIdAsync(enrollmentId);
            
-            return enrollment == null ? null : _mapper.Map<EnrollmentDTO>(enrollment);
+            return enrollment is null ? null : _mapper.Map<EnrollmentDTO>(enrollment);
         }
         
         public async Task<IReadOnlyList<EnrollmentDTO>> GetEnrollmentsByUserIdAsync(int userId)
@@ -62,11 +61,9 @@ namespace EduPlatform.Infrastructure.Implementations.Services
 
             var enrollment = _mapper.Map<Enrollment>(createEnrollmentDto);
             
-            await _unitOfWork.EnrollmentRepository.AddAsync(enrollment);
-            
-            await _unitOfWork.SaveChangesAsync();
-            
-            return _mapper.Map<EnrollmentDTO>(enrollment);
+            var result = await _unitOfWork.EnrollmentRepository.AddAsync(enrollment);
+                        
+            return _mapper.Map<EnrollmentDTO>(result);
         }
         
         public async Task<EnrollmentDTO> UpdateEnrollmentAsync(EnrollmentDTO enrollmentDto)
@@ -78,11 +75,9 @@ namespace EduPlatform.Infrastructure.Implementations.Services
 
             var enrollment = _mapper.Map<Enrollment>(enrollmentDto);
             
-            await _unitOfWork.EnrollmentRepository.UpdateAsync(enrollment);
+            var result = await _unitOfWork.EnrollmentRepository.UpdateAsync(enrollment);
             
-            await _unitOfWork.SaveChangesAsync();
-            
-            return _mapper.Map<EnrollmentDTO>(enrollment);
+            return _mapper.Map<EnrollmentDTO>(result);
         }
         
         public async Task<bool> DeleteEnrollmentAsync(int enrollmentId)
@@ -92,18 +87,9 @@ namespace EduPlatform.Infrastructure.Implementations.Services
                 throw new ArgumentException("Invalid enrollment ID", nameof(enrollmentId));
             }
 
-            var enrollment = await _unitOfWork.EnrollmentRepository.GetByIdAsync(enrollmentId);
+            var result = await _unitOfWork.EnrollmentRepository.DeleteAsync(enrollmentId);
 
-            if (enrollment == null)
-            {
-                return false;
-            } 
-            
-            await _unitOfWork.EnrollmentRepository.DeleteAsync(enrollmentId);
-            
-            await _unitOfWork.SaveChangesAsync();
-            
-            return true;
+            return result;
         }
     }
 }
