@@ -22,6 +22,11 @@ namespace EduPlatform.Application.Mapping
                 .ForMember(dest => dest.Course, opt => opt.Ignore())       // Course navigation property
                 .ForMember(dest => dest.User, opt => opt.Ignore())         // User navigation property
                 .ForMember(dest => dest.Payments, opt => opt.Ignore());    // Payments collection
+
+            // Mapping from UpdateEnrollmentDTO to Enrollment
+            CreateMap<UpdateEnrollmentDTO, Enrollment>();
+
+
         }
     }
 }

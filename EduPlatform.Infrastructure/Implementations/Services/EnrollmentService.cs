@@ -93,21 +93,21 @@ namespace EduPlatform.Infrastructure.Implementations.Services
             return _mapper.Map<EnrollmentDTO>(createdEnrollmentWithDetails);
         }
         
-        public async Task<EnrollmentDTO> UpdateEnrollmentAsync(EnrollmentDTO enrollmentDto)
+        public async Task<EnrollmentDTO> UpdateEnrollmentAsync(UpdateEnrollmentDTO updateEnrollmentDTO)
         {
-            if (enrollmentDto == null)
+            if (updateEnrollmentDTO == null)
             {
-                throw new ArgumentNullException(nameof(enrollmentDto), "Enrollment cannot be null");
+                throw new ArgumentNullException(nameof(updateEnrollmentDTO), "Enrollment cannot be null");
             }
 
-            var existingEnrollment = await _unitOfWork.EnrollmentRepository.GetByIdAsync(enrollmentDto.EnrollmentId);
+            var existingEnrollment = await _unitOfWork.EnrollmentRepository.GetByIdAsync(updateEnrollmentDTO.EnrollmentId);
            
             if (existingEnrollment == null)
             {
-                throw new KeyNotFoundException($"Enrollment with ID {enrollmentDto.EnrollmentId} not found.");
+                throw new KeyNotFoundException($"Enrollment with ID {updateEnrollmentDTO.EnrollmentId} not found.");
             }
 
-            _mapper.Map(enrollmentDto, existingEnrollment);
+            _mapper.Map(updateEnrollmentDTO, existingEnrollment);
             
             var result = await _unitOfWork.EnrollmentRepository.UpdateAsync(existingEnrollment);
             

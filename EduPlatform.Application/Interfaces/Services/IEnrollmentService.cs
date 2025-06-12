@@ -9,7 +9,7 @@ namespace EduPlatform.Application.Interfaces.Services
         Task<IReadOnlyList<EnrollmentDTO>> GetEnrollmentsByUserIdAsync(int userId);
         Task<IReadOnlyList<EnrollmentDTO>> GetEnrollmentsByCourseIdAsync(int courseId);
         Task<EnrollmentDTO> CreateEnrollmentAsync(CreateEnrollmentDTO createEnrollmentDto);
-        Task<EnrollmentDTO> UpdateEnrollmentAsync(EnrollmentDTO enrollmentDto);
+        Task<EnrollmentDTO> UpdateEnrollmentAsync(UpdateEnrollmentDTO updateEnrollmentDTO);
         Task<bool> DeleteEnrollmentAsync(int enrollmentId);
     }
 }

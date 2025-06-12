@@ -119,9 +119,9 @@ namespace EduPlatform.Presentation.Controllers
         [HttpPut("Update-Enrollment/{enrollmentId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<EnrollmentDTO>> UpdateEnrollment(int enrollmentId, EnrollmentDTO enrollmentDto)
+        public async Task<ActionResult<EnrollmentDTO>> UpdateEnrollment(int enrollmentId, UpdateEnrollmentDTO updateEnrollmentDTO)
         {
-            if (enrollmentDto.EnrollmentId != enrollmentId)
+            if (updateEnrollmentDTO.EnrollmentId != enrollmentId)
             {
                 return BadRequest("Enrollment ID mismatch.");
             }
@@ -133,7 +133,7 @@ namespace EduPlatform.Presentation.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var updatedEnrollment = await _enrollmentService.UpdateEnrollmentAsync(enrollmentDto);
+                var updatedEnrollment = await _enrollmentService.UpdateEnrollmentAsync(updateEnrollmentDTO);
                 
                 return Ok(updatedEnrollment);
             }
