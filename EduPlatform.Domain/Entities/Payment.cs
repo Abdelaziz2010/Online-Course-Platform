@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace EduPlatform.Domain.Entities;
+﻿namespace EduPlatform.Domain.Entities;
 
 public partial class Payment
 {

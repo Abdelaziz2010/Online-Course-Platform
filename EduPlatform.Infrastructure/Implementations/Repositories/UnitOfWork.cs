@@ -11,7 +11,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
         private ICourseRepository _courseRepository;
         private IVideoRequestRepository _videoRequestRepository;
         private IReviewRepository _reviewRepository;
-
+        private IEnrollmentRepository _enrollmentRepository;
 
         public UnitOfWork(EduPlatformDbContext context)
         {
@@ -24,6 +24,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
         public ICourseRepository CourseRepository => _courseRepository ??= new CourseRepository(_context);
         public IVideoRequestRepository VideoRequestRepository => _videoRequestRepository ??= new VideoRequestRepository(_context);
         public IReviewRepository ReviewRepository => _reviewRepository ??= new ReviewRepository(_context);
+        public IEnrollmentRepository EnrollmentRepository => _enrollmentRepository ??= new EnrollmentRepository(_context);
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

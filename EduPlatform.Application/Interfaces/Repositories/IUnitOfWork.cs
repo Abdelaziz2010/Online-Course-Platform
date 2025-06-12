@@ -7,6 +7,8 @@ namespace EduPlatform.Application.Interfaces.Repositories
         public ICourseRepository CourseRepository { get; }
         public IVideoRequestRepository VideoRequestRepository { get; }
         public IReviewRepository ReviewRepository { get; }
+        public IEnrollmentRepository EnrollmentRepository { get; }
+
         Task SaveChangesAsync();
     }
 }
