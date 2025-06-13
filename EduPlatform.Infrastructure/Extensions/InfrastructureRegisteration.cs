@@ -39,6 +39,10 @@ namespace EduPlatform.Infrastructure.Extensions
 
             services.AddScoped<IEmailNotification, EmailNotification>();
 
+            services.AddScoped<IStripeService, StripeService>();
+
+            services.AddScoped<IPaymentProcessingService, PaymentProcessingService>();
+
             return services;
         }
     }

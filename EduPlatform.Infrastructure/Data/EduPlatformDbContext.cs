@@ -117,6 +117,7 @@ namespace EduPlatform.Infrastructure.Data
                     .HasColumnType("datetime");
                 entity.Property(e => e.PaymentMethod).HasMaxLength(50);
                 entity.Property(e => e.PaymentStatus).HasMaxLength(20);
+                entity.Property(e => e.StripePaymentIntentId).HasMaxLength(100);
 
                 entity.HasOne(d => d.Enrollment).WithMany(p => p.Payments)
                     .HasForeignKey(d => d.EnrollmentId)

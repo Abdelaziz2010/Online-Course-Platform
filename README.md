@@ -43,6 +43,8 @@ The platform also supports real-time interaction to promote active learning and 
 
 **Payment Integration:** Secure payment processing for paid courses using a payment gateway.
 
+**Real-Time Communication:** SignalR-powered chat functionality for student-instructor interactions.
+
 **Notifications:** Automated email notifications using SendGrid for course updates, payment confirmations, and reminders.
 
 **Content Delivery:** Courses can be delivered as live sessions or pre-recorded videos stored in Azure Blob Storage.
@@ -149,6 +151,8 @@ The platform also supports real-time interaction to promote active learning and 
 **Monitoring:** Application Insights 
 
 **Emails and Notifications:** SendGrid  
+
+**Real-Time Communication:** SignalR
 
 **Deployment:** Azure Web App  
 

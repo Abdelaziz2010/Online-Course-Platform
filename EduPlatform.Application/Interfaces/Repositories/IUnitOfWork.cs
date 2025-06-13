@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.EntityFrameworkCore.Storage;
+
 namespace EduPlatform.Application.Interfaces.Repositories
 {
     public interface IUnitOfWork
@@ -8,7 +10,8 @@ namespace EduPlatform.Application.Interfaces.Repositories
         public IVideoRequestRepository VideoRequestRepository { get; }
         public IReviewRepository ReviewRepository { get; }
         public IEnrollmentRepository EnrollmentRepository { get; }
-
+        public IPaymentRepository PaymentRepository { get; }
         Task SaveChangesAsync();
+        Task<IDbContextTransaction> BeginTransactionAsync();
     }
 }

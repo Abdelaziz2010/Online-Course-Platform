@@ -13,6 +13,9 @@ public partial class Payment
     public string PaymentMethod { get; set; } = null!;
 
     public string PaymentStatus { get; set; } = null!;
+    
+    // Stripe specific property
+    public string? StripePaymentIntentId { get; set; }
 
     public virtual Enrollment Enrollment { get; set; } = null!;
 }
