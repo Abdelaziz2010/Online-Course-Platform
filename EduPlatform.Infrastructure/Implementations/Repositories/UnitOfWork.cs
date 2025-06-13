@@ -1,6 +1,7 @@
 ﻿
 using EduPlatform.Application.Interfaces.Repositories;
 using EduPlatform.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace EduPlatform.Infrastructure.Implementations.Repositories
 {
@@ -12,6 +13,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
         private IVideoRequestRepository _videoRequestRepository;
         private IReviewRepository _reviewRepository;
         private IEnrollmentRepository _enrollmentRepository;
+        private IPaymentRepository _paymentRepository;
 
         public UnitOfWork(EduPlatformDbContext context)
         {
@@ -25,9 +27,16 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
         public IVideoRequestRepository VideoRequestRepository => _videoRequestRepository ??= new VideoRequestRepository(_context);
         public IReviewRepository ReviewRepository => _reviewRepository ??= new ReviewRepository(_context);
         public IEnrollmentRepository EnrollmentRepository => _enrollmentRepository ??= new EnrollmentRepository(_context);
+        public IPaymentRepository PaymentRepository => _paymentRepository ??= new PaymentRepository(_context);
+       
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        {
+            return await _context.Database.BeginTransactionAsync();
         }
     }
 }

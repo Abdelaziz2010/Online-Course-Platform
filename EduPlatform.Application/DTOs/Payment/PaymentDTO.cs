@@ -14,5 +14,9 @@ namespace EduPlatform.Application.DTOs.Payment
         public string PaymentMethod { get; set; } = null!;
 
         public string PaymentStatus { get; set; } = null!;
+        
+        // Stripe specific properties
+        public string? StripePaymentIntentId { get; set; }  
+        public string? ClientSecret { get; set; }
     }
 }
