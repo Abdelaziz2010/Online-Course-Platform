@@ -14,9 +14,12 @@ namespace EduPlatform.Presentation.Controllers
     public class CoursesController : ControllerBase
     {
         private readonly ICourseService _courseService;
-        public CoursesController(ICourseService courseService)
+        private readonly IAzureBlobStorageService _blobStorageService;
+
+        public CoursesController(ICourseService courseService, IAzureBlobStorageService blobStorageService)
         {
             _courseService = courseService;
+            _blobStorageService = blobStorageService;
         }
 
         // These 3 get methods are publicly available from our UI, no need to authenticate!
@@ -97,6 +100,47 @@ namespace EduPlatform.Presentation.Controllers
             await _courseService.UpdateCourseAsync(courseDetailDTO);
 
             return NoContent();
+        }
+
+        [HttpPost("Upload-Thumbnail/{courseId}")]
+        //[Authorize]
+        //[AdminRole]
+        //[RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")]
+        public async Task<IActionResult> UploadThumbnail(int courseId, IFormFile file)
+        {
+            string thumbnailUrl = null;
+
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded");
+
+            var course = await _courseService.GetCourseDetailsByIdAsync(courseId);
+            
+            if (course == null)
+                return NotFound("Course not found");
+
+
+            using (var stream = new MemoryStream())
+            {
+                await file.CopyToAsync(stream);
+
+                var fileExtension = Path.GetExtension(file.FileName);
+
+                // Upload the byte array to Azure Blob Storage
+                thumbnailUrl = await _blobStorageService.UploadAsync(
+                    stream.ToArray(),
+                    $"{courseId}_{course.Title.Trim().Replace(' ', '_')}{fileExtension}",
+                    "course-images");
+            }
+
+            // Update the thumbnail URL in the database
+            var success = await _courseService.UpdateCourseThumbnail(thumbnailUrl, courseId);
+            
+            if (!success)
+            {
+                return StatusCode(500, "Failed to update course thumbnail");
+            }
+
+            return Ok(new { Message = "Thumbnail updated successfully", thumbnailUrl });
         }
 
         [HttpDelete("Delete-Course/{id}")]

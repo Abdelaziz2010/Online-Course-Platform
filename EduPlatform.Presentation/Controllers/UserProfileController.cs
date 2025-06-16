@@ -82,7 +82,7 @@ namespace EduPlatform.Presentation.Controllers
                     var fileExtension = Path.GetExtension(updatePictureDto.Picture.FileName);
                     
                     // Upload to blob storage
-                    var pictureUrl = await _blobStorageService.UploadFileAsync(
+                    var pictureUrl = await _blobStorageService.UploadAsync(
                         stream.ToArray(),
                         $"{updatePictureDto.UserId}_profile_picture{fileExtension}"
                     );

@@ -198,14 +198,14 @@ namespace EduPlatform.Infrastructure.Implementations.Services
         }
         public async Task<bool> UpdateCourseThumbnail(string courseThumbnailUrl, int courseId)
         {
-            if (string.IsNullOrEmpty(courseThumbnailUrl))
-            {
-                throw new ArgumentException("Course thumbnail URL cannot be null or empty", nameof(courseThumbnailUrl));
-            }
-
             if (courseId <= 0)
             {
                 throw new ArgumentException("Invalid course ID", nameof(courseId));
+            }
+
+            if (string.IsNullOrEmpty(courseThumbnailUrl))
+            {
+                throw new ArgumentException("Course thumbnail URL cannot be null or empty", nameof(courseThumbnailUrl));
             }
 
             return await _unitOfWork.CourseRepository.UpdateCourseThumbnail(courseThumbnailUrl, courseId);

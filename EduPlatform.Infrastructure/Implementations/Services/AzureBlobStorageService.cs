@@ -18,7 +18,7 @@ namespace EduPlatform.Infrastructure.Implementations.Services
             _containerName = _configuration["AzureBlobStorage:ContainerName"] ?? throw new ArgumentNullException(nameof(_containerName));
             _blobServiceClient = new BlobServiceClient(_connectionString);
         }
-        public async Task<string> UploadFileAsync(byte[] fileData, string fileName, string containerName = "")
+        public async Task<string> UploadAsync(byte[] fileData, string fileName, string containerName = "")
         {
             var containerClient = _blobServiceClient.GetBlobContainerClient(string.IsNullOrEmpty(containerName) ? _containerName : containerName);
 
