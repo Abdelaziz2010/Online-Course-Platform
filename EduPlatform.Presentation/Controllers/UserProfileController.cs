@@ -3,6 +3,7 @@ using EduPlatform.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.IO;
 
 namespace EduPlatform.Presentation.Controllers
 {
@@ -12,10 +13,12 @@ namespace EduPlatform.Presentation.Controllers
     public class UserProfileController : ControllerBase
     {
         private readonly IUserProfileService _userProfileService;
+        private readonly IAzureBlobStorageService _blobStorageService;
 
-        public UserProfileController(IUserProfileService userProfileService)
+        public UserProfileController(IUserProfileService userProfileService, IAzureBlobStorageService blobStorageService)
         {
             _userProfileService = userProfileService;
+            _blobStorageService = blobStorageService;
         }
 
         /// <summary>
@@ -54,28 +57,46 @@ namespace EduPlatform.Presentation.Controllers
         /// <summary>
         /// Update user's profile picture
         /// </summary>
-        /// <param name="userId">The ID of the user</param>
-        /// <param name="pictureUrl">The URL of the profile picture</param>
+        /// <param name="updatePictureDto">The picture update data</param>
         /// <returns>Success status</returns>
         /// <response code="200">Profile picture updated successfully</response>
         /// <response code="400">If the input is invalid</response>
         /// <response code="404">If the user is not found</response>
-        [HttpPut("Update-Profile-Picture/{userId}")]
+        [HttpPut("Update-Profile-Picture")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> UpdateProfilePicture(int userId, [FromBody] string pictureUrl)
+        public async Task<IActionResult> UpdateProfilePicture([FromForm] UpdateUserPictureDTO updatePictureDto)
         {
             try
             {
-                var result = await _userProfileService.UpdateUserProfilePicture(userId, pictureUrl);
-                
-                if (!result)
+                if (updatePictureDto.Picture is null)
                 {
-                    return NotFound($"User with ID {userId} not found.");
+                    return BadRequest("No picture file was provided.");
                 }
 
-                return Ok("Profile picture updated successfully.");
+                using (var stream = new MemoryStream())
+                {
+                    await updatePictureDto.Picture.CopyToAsync(stream);
+                   
+                    var fileExtension = Path.GetExtension(updatePictureDto.Picture.FileName);
+                    
+                    // Upload to blob storage
+                    var pictureUrl = await _blobStorageService.UploadFileAsync(
+                        stream.ToArray(),
+                        $"{updatePictureDto.UserId}_profile_picture{fileExtension}"
+                    );
+
+                    // Update the profile picture URL in the database
+                    var result = await _userProfileService.UpdateUserProfilePicture(updatePictureDto.UserId, pictureUrl);
+                    
+                    if (!result)
+                    {
+                        return NotFound($"User with ID {updatePictureDto.UserId} not found.");
+                    }
+
+                    return Ok(new { Message = "Picture updated successfully.", pictureUrl }); 
+                }
             }
             catch (ArgumentException ex)
             {
@@ -90,25 +111,24 @@ namespace EduPlatform.Presentation.Controllers
         /// <summary>
         /// Update user's bio
         /// </summary>
-        /// <param name="userId">The ID of the user</param>
-        /// <param name="bio">The new bio text</param>
+        /// <param name="updateBioDto">The bio update data</param>
         /// <returns>Success status</returns>
         /// <response code="200">Bio updated successfully</response>
         /// <response code="400">If the input is invalid</response>
         /// <response code="404">If the user is not found or is not an instructor</response>
-        [HttpPut("Update-Profile-Bio/{userId}")]
+        [HttpPut("Update-Profile-Bio")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> UpdateBio(int userId, [FromBody] string bio)
+        public async Task<IActionResult> UpdateProfileBio([FromBody] UpdateUserBioDTO updateBioDto)
         {
-            try
+            try 
             {
-                var result = await _userProfileService.UpdateUserBio(userId, bio);
+                var result = await _userProfileService.UpdateUserBio(updateBioDto.UserId, updateBioDto.Bio ?? string.Empty);
                 
                 if (!result)
                 {
-                    return NotFound($"User with ID {userId} not found or is not an instructor.");
+                    return NotFound($"User with ID {updateBioDto.UserId} not found or is not an instructor.");
                 }
 
                 return Ok("Bio updated successfully.");

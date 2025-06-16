@@ -43,6 +43,8 @@ namespace EduPlatform.Infrastructure.Extensions
 
             services.AddScoped<IUserProfileService, UserProfileService>();
 
+            services.AddScoped<IAzureBlobStorageService, AzureBlobStorageService>();
+
             services.AddScoped<IPaymentProcessingService, PaymentProcessingService>();
 
             return services;

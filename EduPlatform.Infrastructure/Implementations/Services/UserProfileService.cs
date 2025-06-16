@@ -80,9 +80,7 @@ namespace EduPlatform.Infrastructure.Implementations.Services
                 throw new ArgumentException("Bio cannot be null or empty.", nameof(bio));
             }
 
-            await _unitOfWork.UserProfileRepository.UpdateUserBio(userId, bio);
-
-            return true;
+            return await _unitOfWork.UserProfileRepository.UpdateUserBio(userId, bio);
         }
     }
 }
