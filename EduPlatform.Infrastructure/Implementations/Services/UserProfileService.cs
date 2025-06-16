@@ -44,7 +44,7 @@ namespace EduPlatform.Infrastructure.Implementations.Services
                 {
                     UserRoleId = role.UserRoleId,
                     RoleId = role.RoleId,
-                    RoleName = role.Role.RoleName,
+                    RoleName = role.Role?.RoleName ?? "Unknown Role", // Handle null Role,
                     UserId = role.UserId
                 }).ToList(),
                 Bio = instructor?.Bio ?? string.Empty // Set Bio only if the user is an instructor

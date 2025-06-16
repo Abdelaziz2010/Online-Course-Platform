@@ -17,6 +17,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
             var user = await _context.UserProfiles
                 .Include(u => u.Instructors)
                 .Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role) // Include the Role navigation property
                 .FirstOrDefaultAsync(f => f.UserId == userId);
 
             if (user == null)

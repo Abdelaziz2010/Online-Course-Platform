@@ -26,7 +26,7 @@ namespace EduPlatform.Presentation.Controllers
         /// <response code="200">Returns the user profile information</response>
         /// <response code="404">If the user is not found</response>
         [HttpGet("Get-User-Info/{userId}")]
-        [ProducesResponseType(typeof(UserDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<UserDTO>> GetUserInfo(int userId)
         {
