@@ -14,6 +14,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
         private IReviewRepository _reviewRepository;
         private IEnrollmentRepository _enrollmentRepository;
         private IPaymentRepository _paymentRepository;
+        private IUserProfileRepository _userProfileRepository;
 
         public UnitOfWork(EduPlatformDbContext context)
         {
@@ -28,6 +29,7 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
         public IReviewRepository ReviewRepository => _reviewRepository ??= new ReviewRepository(_context);
         public IEnrollmentRepository EnrollmentRepository => _enrollmentRepository ??= new EnrollmentRepository(_context);
         public IPaymentRepository PaymentRepository => _paymentRepository ??= new PaymentRepository(_context);
+        public IUserProfileRepository UserProfileRepository => _userProfileRepository ??= new UserProfileRepository(_context);
        
         public async Task SaveChangesAsync()
         {
