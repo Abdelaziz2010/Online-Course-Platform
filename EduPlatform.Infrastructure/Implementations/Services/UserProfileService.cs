@@ -68,7 +68,6 @@ namespace EduPlatform.Infrastructure.Implementations.Services
 
             return true;
         }
-
         public async Task<bool> UpdateUserBio(int userId, string bio)
         {
             if (userId <= 0)
