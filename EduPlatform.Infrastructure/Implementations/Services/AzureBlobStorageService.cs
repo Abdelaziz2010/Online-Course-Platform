@@ -28,7 +28,7 @@ namespace EduPlatform.Infrastructure.Implementations.Services
 
             using (var stream = new MemoryStream(fileData))
             {
-                await blobClient.UploadAsync(stream);
+                await blobClient.UploadAsync(stream, true);
             }
 
             return blobClient.Uri.ToString();
