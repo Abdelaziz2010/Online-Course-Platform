@@ -41,6 +41,8 @@ namespace EduPlatform.Infrastructure.Extensions
 
             services.AddScoped<IStripeService, StripeService>();
 
+            services.AddScoped<IUserProfileService, UserProfileService>();
+
             services.AddScoped<IPaymentProcessingService, PaymentProcessingService>();
 
             return services;
