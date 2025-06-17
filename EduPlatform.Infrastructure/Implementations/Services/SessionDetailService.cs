@@ -37,7 +37,7 @@ namespace EduPlatform.Infrastructure.Implementations.Services
             };
         }
 
-        public async Task UpdateVideoUrlAsync(int sessionId, string videoUrl)
+        public async Task<bool> UpdateVideoUrlAsync(int sessionId, string videoUrl)
         {
             if (sessionId <= 0)
             {
@@ -58,7 +58,9 @@ namespace EduPlatform.Infrastructure.Implementations.Services
 
             session.VideoUrl = videoUrl;
 
-            await _unitOfWork.SessionDetailRepository.UpdateAsync(session);
+            var result = await _unitOfWork.SessionDetailRepository.UpdateAsync(session);
+
+            return result;
         }
     }
 }

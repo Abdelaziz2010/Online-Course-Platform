@@ -32,10 +32,11 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(SessionDetail sessionDetail)
+        public async Task<bool> UpdateAsync(SessionDetail sessionDetail)
         {
             _context.SessionDetails.Update(sessionDetail);
             await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task DeleteAsync(SessionDetail sessionDetail)

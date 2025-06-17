@@ -47,6 +47,8 @@ namespace EduPlatform.Infrastructure.Extensions
 
             services.AddScoped<IPaymentProcessingService, PaymentProcessingService>();
 
+            services.AddScoped<ISessionDetailService, SessionDetailService>();
+
             return services;
         }
     }
