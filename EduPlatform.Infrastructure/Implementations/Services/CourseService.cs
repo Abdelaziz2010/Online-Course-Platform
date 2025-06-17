@@ -45,7 +45,7 @@ namespace EduPlatform.Infrastructure.Implementations.Services
             return course;
         }
 
-        public async Task AddCourseAsync(CourseDetailDTO courseDTO)
+        public async Task<CreateCourseResponseDTO> AddCourseAsync(CreateCourseDTO courseDTO)
         {
             if (courseDTO == null)
             {
@@ -65,20 +65,28 @@ namespace EduPlatform.Infrastructure.Implementations.Services
                 InstructorId = courseDTO.InstructorId,
                 StartDate = courseDTO.StartDate,
                 EndDate = courseDTO.EndDate,
-                Thumbnail = courseDTO.Thumbnail,
                 SessionDetails = courseDTO.SessionDetails.Select(sd => new SessionDetail
                 {
                     Title = sd.Title,
                     Description = sd.Description,
-                    VideoUrl = sd.VideoUrl,
+                    VideoUrl = null, // initially null
                     VideoOrder = sd.VideoOrder
                 }).ToList()
             };
 
              await _unitOfWork.CourseRepository.AddCourseAsync(course);
+
+            // After SaveChanges, course & session IDs are available.
+            var sessionIds = course.SessionDetails.Select(s => s.SessionId).ToList();
+
+            return new CreateCourseResponseDTO
+            {
+                CourseId = course.CourseId,
+                SessionIds = sessionIds
+            };
         }
 
-        public async Task UpdateCourseAsync(CourseDetailDTO courseDTO)
+        public async Task UpdateCourseAsync(UpdateCourseDTO courseDTO)
         {
             if (courseDTO == null)
             {

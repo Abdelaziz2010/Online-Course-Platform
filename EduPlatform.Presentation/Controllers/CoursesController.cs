@@ -69,25 +69,37 @@ namespace EduPlatform.Presentation.Controllers
         [Authorize]
         [AdminRole]
         [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")]
-        public async Task<IActionResult> CreateCourseAsync([FromBody] CourseDetailDTO courseDetailDTO)
+        public async Task<ActionResult<CreateCourseResponseDTO>> CreateCourseAsync([FromBody] CreateCourseDTO courseDTO)
         {
-            if(!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var result = await _courseService.AddCourseAsync(courseDTO);
+
+                return Ok(result);
             }
-
-            await _courseService.AddCourseAsync(courseDetailDTO);
-
-            return Ok(courseDetailDTO);
+            catch (ArgumentException ex)
+            {
+                // Handle known argument errors
+                return BadRequest(new { ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
         }
 
         [HttpPut("Update-Course/{id}")]
         [Authorize]
         [AdminRole]
         [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")]
-        public async Task<IActionResult> UpdateCourseAsync(int id, [FromBody] CourseDetailDTO courseDetailDTO)
+        public async Task<IActionResult> UpdateCourseAsync(int id, [FromBody] UpdateCourseDTO courseDTO)
         {
-            if (id != courseDetailDTO.CourseId)
+            if (id != courseDTO.CourseId)
             {
                 return BadRequest("Course ID mismatch");
             }
@@ -97,7 +109,7 @@ namespace EduPlatform.Presentation.Controllers
                 return BadRequest(ModelState);
             }
 
-            await _courseService.UpdateCourseAsync(courseDetailDTO);
+            await _courseService.UpdateCourseAsync(courseDTO);
 
             return NoContent();
         }

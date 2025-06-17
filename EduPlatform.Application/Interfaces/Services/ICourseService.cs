@@ -6,8 +6,8 @@ namespace EduPlatform.Application.Interfaces.Services
     {
         Task<IReadOnlyList<CourseDTO>> GetAllCoursesAsync(int? categoryId = null);
         Task<CourseDetailDTO> GetCourseDetailsByIdAsync(int courseId);
-        Task AddCourseAsync(CourseDetailDTO courseDTO); 
-        Task UpdateCourseAsync(CourseDetailDTO courseDTO);
+        Task<CreateCourseResponseDTO> AddCourseAsync(CreateCourseDTO courseDTO); 
+        Task UpdateCourseAsync(UpdateCourseDTO courseDTO);
         Task DeleteCourseAsync(int courseId);
         Task<IReadOnlyList<InstructorDTO>> GetAllInstructorsAsync();
         Task<bool> UpdateCourseThumbnail(string courseThumbnailUrl, int courseId);
