@@ -164,12 +164,16 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
         {
             var course = await _context.Courses.FindAsync(courseId);
 
-            if(course != null)
+            if(course is null)
             {
-                course.Thumbnail = courseThumbnailUrl;                
+                return false;  // If course is not found, return false
             }
 
-            return await _context.SaveChangesAsync() > 0;
+            course.Thumbnail = courseThumbnailUrl;
+            
+            await _context.SaveChangesAsync();
+            
+            return true;
         }
     }
 }
