@@ -1,5 +1,6 @@
 ﻿namespace EduPlatform.Application.DTOs.Course
 {
+    // For creating new course	
     public record CreateCourseDTO
     {
         public string Title { get; set; } = null!;

@@ -53,14 +53,14 @@ namespace EduPlatform.Infrastructure.Implementations.Services
             
             if (session == null)
             {
-                throw new KeyNotFoundException($"Session with ID {sessionId} not found.");
+                return false;
             }
 
             session.VideoUrl = videoUrl;
 
-            var result = await _unitOfWork.SessionDetailRepository.UpdateAsync(session);
+            await _unitOfWork.SaveChangesAsync();
 
-            return result;
+            return true;
         }
     }
 }

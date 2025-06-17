@@ -26,22 +26,9 @@ namespace EduPlatform.Infrastructure.Implementations.Repositories
                 .ToListAsync();
         }
 
-        public async Task AddAsync(SessionDetail sessionDetail)
-        {
-            await _context.SessionDetails.AddAsync(sessionDetail);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<bool> UpdateAsync(SessionDetail sessionDetail)
+        public async Task UpdateAsync(SessionDetail sessionDetail)
         {
             _context.SessionDetails.Update(sessionDetail);
-            await _context.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task DeleteAsync(SessionDetail sessionDetail)
-        {
-            _context.SessionDetails.Remove(sessionDetail);
             await _context.SaveChangesAsync();
         }
     }

@@ -1,6 +1,7 @@
 ﻿
 namespace EduPlatform.Application.DTOs.Course
 {
+    // For updating existing course
     public record UpdateCourseDTO
     {
         public int CourseId { get; set; }
