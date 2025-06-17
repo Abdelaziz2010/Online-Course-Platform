@@ -14,12 +14,14 @@ namespace EduPlatform.Presentation.Controllers
     public class CoursesController : ControllerBase
     {
         private readonly ICourseService _courseService;
+        private readonly ISessionDetailService _sessionDetailService;
         private readonly IAzureBlobStorageService _blobStorageService;
 
-        public CoursesController(ICourseService courseService, IAzureBlobStorageService blobStorageService)
+        public CoursesController(ICourseService courseService, IAzureBlobStorageService blobStorageService, ISessionDetailService sessionDetailService)
         {
             _courseService = courseService;
             _blobStorageService = blobStorageService;
+            _sessionDetailService = sessionDetailService;
         }
 
         // These 3 get methods are publicly available from our UI, no need to authenticate!
@@ -69,25 +71,37 @@ namespace EduPlatform.Presentation.Controllers
         [Authorize]
         [AdminRole]
         [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")]
-        public async Task<IActionResult> CreateCourseAsync([FromBody] CourseDetailDTO courseDetailDTO)
+        public async Task<ActionResult<CreateCourseResponseDTO>> CreateCourseAsync([FromBody] CreateCourseDTO courseDTO)
         {
-            if(!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var result = await _courseService.AddCourseAsync(courseDTO);
+
+                return Ok(result);
             }
-
-            await _courseService.AddCourseAsync(courseDetailDTO);
-
-            return Ok(courseDetailDTO);
+            catch (ArgumentException ex)
+            {
+                // Handle known argument errors
+                return BadRequest(new { ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
         }
 
         [HttpPut("Update-Course/{id}")]
         [Authorize]
         [AdminRole]
         [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")]
-        public async Task<IActionResult> UpdateCourseAsync(int id, [FromBody] CourseDetailDTO courseDetailDTO)
+        public async Task<IActionResult> UpdateCourseAsync(int id, [FromBody] UpdateCourseDTO courseDTO)
         {
-            if (id != courseDetailDTO.CourseId)
+            if (id != courseDTO.CourseId)
             {
                 return BadRequest("Course ID mismatch");
             }
@@ -97,15 +111,15 @@ namespace EduPlatform.Presentation.Controllers
                 return BadRequest(ModelState);
             }
 
-            await _courseService.UpdateCourseAsync(courseDetailDTO);
+            await _courseService.UpdateCourseAsync(courseDTO);
 
             return NoContent();
         }
 
         [HttpPost("Upload-Thumbnail/{courseId}")]
-        //[Authorize]
-        //[AdminRole]
-        //[RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")]
+        [Authorize]
+        [AdminRole]
+        [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")]
         public async Task<IActionResult> UploadThumbnail(int courseId, IFormFile file)
         {
             string thumbnailUrl = null;
@@ -141,6 +155,47 @@ namespace EduPlatform.Presentation.Controllers
             }
 
             return Ok(new { Message = "Thumbnail updated successfully", thumbnailUrl });
+        }
+
+
+        [HttpPost("Upload-Session-Video/{sessionId}")]
+        [Authorize]
+        [AdminRole]
+        [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")]
+        public async Task<IActionResult> UploadSessionVideo(int sessionId, IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded");
+
+
+            // Get session details (optional, for naming or validation)
+            // You may want to add a method to get session by ID if needed
+
+            var fileExtension = Path.GetExtension(file.FileName);
+
+            var fileName = $"session_video_{sessionId}{fileExtension}";
+
+            using (var stream = new MemoryStream())
+            {
+                await file.CopyToAsync(stream);
+
+                // Upload to Azure Blob Storage
+                var videoUrl = await _blobStorageService.UploadAsync(
+                    stream.ToArray(),
+                    fileName,
+                    "session-videos"
+                );
+
+                // Update the VideoUrl in the database
+                var success = await _sessionDetailService.UpdateVideoUrlAsync(sessionId, videoUrl);
+
+                if (!success)
+                {
+                    return StatusCode(500, "Failed to update session video URL");
+                }
+
+                return Ok(new { Message = "Session video uploaded successfully", videoUrl });
+            }
         }
 
         [HttpDelete("Delete-Course/{id}")]

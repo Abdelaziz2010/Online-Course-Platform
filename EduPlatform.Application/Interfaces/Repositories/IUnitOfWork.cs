@@ -12,6 +12,7 @@ namespace EduPlatform.Application.Interfaces.Repositories
         public IEnrollmentRepository EnrollmentRepository { get; }
         public IPaymentRepository PaymentRepository { get; }
         public IUserProfileRepository UserProfileRepository { get; }
+        public ISessionDetailRepository SessionDetailRepository { get; }
         Task SaveChangesAsync();
         Task<IDbContextTransaction> BeginTransactionAsync();
     }
