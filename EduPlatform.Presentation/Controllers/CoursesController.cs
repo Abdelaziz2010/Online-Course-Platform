@@ -117,9 +117,9 @@ namespace EduPlatform.Presentation.Controllers
         }
 
         [HttpPost("Upload-Thumbnail/{courseId}")]
-        //[Authorize]
-        //[AdminRole]
-        //[RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")]
+        [Authorize]
+        [AdminRole]
+        [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")]
         public async Task<IActionResult> UploadThumbnail(int courseId, IFormFile file)
         {
             string thumbnailUrl = null;
@@ -159,9 +159,9 @@ namespace EduPlatform.Presentation.Controllers
 
 
         [HttpPost("Upload-Session-Video/{sessionId}")]
-        //[Authorize]
-        //[AdminRole]
-        //[RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")]
+        [Authorize]
+        [AdminRole]
+        [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")]
         public async Task<IActionResult> UploadSessionVideo(int sessionId, IFormFile file)
         {
             if (file == null || file.Length == 0)
