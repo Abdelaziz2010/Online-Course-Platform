@@ -57,6 +57,20 @@
 ---
 
 ## Azure Resources Used (for testing):
+<div align="center">
+
+  <div style="display: inline-block; margin: 10px;">
+    <div align="center"><b>Subscription</b></div>
+    <img src="https://github.com/user-attachments/assets/79dfd7a4-792f-40b3-acd8-97add2e3b74e" width="300"/>
+  </div>
+  <div style="display: inline-block; margin: 10px;">
+    <div align="center"><b>Resource Group</b></div>
+    <img src="https://github.com/user-attachments/assets/c91bc5a4-fdc0-4355-a428-30e5cad90b07" width="300"/>
+  </div>
+
+</div>
+
+
 - Subscription
 ![Image](https://github.com/user-attachments/assets/79dfd7a4-792f-40b3-acd8-97add2e3b74e)
 - Resource Group
