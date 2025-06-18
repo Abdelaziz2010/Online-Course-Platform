@@ -62,6 +62,35 @@ Below are screenshots showing the Azure resources created and configured during 
 
 *Note: These resources were created for development and testing purposes and have been deleted after project completion.*
 
+
+| Subscription | Resource Group |
+|--------------|----------------|
+| <img src="https://github.com/user-attachments/assets/79dfd7a4-792f-40b3-acd8-97add2e3b74e" width="500"/> | <img src="https://github.com/user-attachments/assets/c91bc5a4-fdc0-4355-a428-30e5cad90b07" width="500"/> |
+
+| Database Server | Azure SQL Database |
+|-----------------|--------------------|
+| <img src="https://github.com/user-attachments/assets/aa681b29-701c-47b3-89c8-0f0bb114af15" width="400"/> | <img src="https://github.com/user-attachments/assets/fd56f062-d334-4f9a-9dcc-12aa9f37e65c" width="300"/> |
+
+| Storage Account | Blob Storage Container |
+|-----------------|------------------------|
+| <img src="https://github.com/user-attachments/assets/aca825ec-4a7e-421a-a41e-0be462064f04" width="300"/> | <img src="https://github.com/user-attachments/assets/90b3666c-767c-409b-933e-085054ca0be3" width="300"/> |
+
+| Azure Function App | Web App (Backend) |
+|--------------------|-------------------|
+| <img src="https://github.com/user-attachments/assets/a534a740-3dee-4923-a604-b248d65735ee" width="300"/> | <img src="https://github.com/user-attachments/assets/d872b980-f109-40df-9cd5-b0c8f988559a" width="300"/> |
+
+| Web App (Frontend) | Application Insights |
+|--------------------|----------------------|
+| <img src="https://github.com/user-attachments/assets/c9456c88-ef3c-4b32-bd74-79c39f65149f" width="300"/> | <img src="https://github.com/user-attachments/assets/5383f6e4-1493-47d2-8684-6d8b526d81dc" width="300"/> |
+
+| Application Insights Logs | App Insights Server Requests |
+|---------------------------|------------------------------|
+| <img src="https://github.com/user-attachments/assets/3c50c6a0-9f88-4810-b77a-e971f5a1dbfd" width="300"/> | <img src="https://github.com/user-attachments/assets/bfb215a9-8dfe-4ecd-803f-efdea012ef8e" width="300"/> |
+
+| App Insights Failed Requests |  |
+|-----------------------------|--|
+| <img src="https://github.com/user-attachments/assets/7050b375-a345-4489-a4a8-dd1a0aeb01b1" width="300"/> |  |
+
 <div align="center">
 
   <div style="display: inline-block; margin: 10px;">
