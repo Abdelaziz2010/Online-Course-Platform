@@ -25,7 +25,7 @@
 
 ---
 
-# Project Mind Map:
+## Project Mind Map:
 ![Image](https://github.com/user-attachments/assets/2d55079a-8120-474c-9418-5b5b69346db7)
 
 ---
@@ -69,119 +69,28 @@ Below are screenshots showing the Azure resources created and configured during 
 
 | Database Server | Azure SQL Database |
 |-----------------|--------------------|
-| <img src="https://github.com/user-attachments/assets/aa681b29-701c-47b3-89c8-0f0bb114af15" width="400"/> | <img src="https://github.com/user-attachments/assets/fd56f062-d334-4f9a-9dcc-12aa9f37e65c" width="300"/> |
+| <img src="https://github.com/user-attachments/assets/aa681b29-701c-47b3-89c8-0f0bb114af15" width="500"/> | <img src="https://github.com/user-attachments/assets/fd56f062-d334-4f9a-9dcc-12aa9f37e65c" width="500"/> |
 
 | Storage Account | Blob Storage Container |
 |-----------------|------------------------|
-| <img src="https://github.com/user-attachments/assets/aca825ec-4a7e-421a-a41e-0be462064f04" width="300"/> | <img src="https://github.com/user-attachments/assets/90b3666c-767c-409b-933e-085054ca0be3" width="300"/> |
+| <img src="https://github.com/user-attachments/assets/aca825ec-4a7e-421a-a41e-0be462064f04" width="500"/> | <img src="https://github.com/user-attachments/assets/90b3666c-767c-409b-933e-085054ca0be3" width="500"/> |
 
-| Azure Function App | Web App (Backend) |
-|--------------------|-------------------|
-| <img src="https://github.com/user-attachments/assets/a534a740-3dee-4923-a604-b248d65735ee" width="300"/> | <img src="https://github.com/user-attachments/assets/d872b980-f109-40df-9cd5-b0c8f988559a" width="300"/> |
+| Azure Function App with 4 triggers | Web App Service for hosting the Backend |
+|------------------------------------|-----------------------------------------|
+| <img src="https://github.com/user-attachments/assets/a534a740-3dee-4923-a604-b248d65735ee" width="500"/> | <img src="https://github.com/user-attachments/assets/d872b980-f109-40df-9cd5-b0c8f988559a" width="500"/> |
 
-| Web App (Frontend) | Application Insights |
-|--------------------|----------------------|
-| <img src="https://github.com/user-attachments/assets/c9456c88-ef3c-4b32-bd74-79c39f65149f" width="300"/> | <img src="https://github.com/user-attachments/assets/5383f6e4-1493-47d2-8684-6d8b526d81dc" width="300"/> |
+| Web App Service for hosting the Frontend | Application Insights for monitoring and logging |
+|------------------------------------------|-------------------------------------------------|
+| <img src="https://github.com/user-attachments/assets/c9456c88-ef3c-4b32-bd74-79c39f65149f" width="500"/> | <img src="https://github.com/user-attachments/assets/5383f6e4-1493-47d2-8684-6d8b526d81dc" width="500"/> |
 
 | Application Insights Logs | App Insights Server Requests |
 |---------------------------|------------------------------|
-| <img src="https://github.com/user-attachments/assets/3c50c6a0-9f88-4810-b77a-e971f5a1dbfd" width="300"/> | <img src="https://github.com/user-attachments/assets/bfb215a9-8dfe-4ecd-803f-efdea012ef8e" width="300"/> |
+| <img src="https://github.com/user-attachments/assets/3c50c6a0-9f88-4810-b77a-e971f5a1dbfd" width="500"/> | <img src="https://github.com/user-attachments/assets/bfb215a9-8dfe-4ecd-803f-efdea012ef8e" width="500"/> |
 
-| App Insights Failed Requests |  |
-|-----------------------------|--|
-| <img src="https://github.com/user-attachments/assets/7050b375-a345-4489-a4a8-dd1a0aeb01b1" width="300"/> |  |
+| App Insights Failed Requests |
+|------------------------------|
+| <img src="https://github.com/user-attachments/assets/7050b375-a345-4489-a4a8-dd1a0aeb01b1" width="500"/> |
 
-<div align="center">
-
-  <div style="display: inline-block; margin: 10px;">
-    <div align="center"><b>Subscription</b></div>
-    <img src="https://github.com/user-attachments/assets/79dfd7a4-792f-40b3-acd8-97add2e3b74e" width="300"/>
-  </div>
-  <div style="display: inline-block; margin: 10px;">
-    <div align="center"><b>Resource Group</b></div>
-    <img src="https://github.com/user-attachments/assets/c91bc5a4-fdc0-4355-a428-30e5cad90b07" width="300"/>
-  </div>
-
-  <div style="display: inline-block; margin: 10px;">
-    <div align="center"><b>Database Server</b></div>
-    <img src="https://github.com/user-attachments/assets/aa681b29-701c-47b3-89c8-0f0bb114af15" width="300"/>
-  </div>
-  <div style="display: inline-block; margin: 10px;">
-    <div align="center"><b>Azure SQL Database</b></div>
-    <img src="https://github.com/user-attachments/assets/fd56f062-d334-4f9a-9dcc-12aa9f37e65c" width="300"/>
-  </div>
-
-  <div style="display: inline-block; margin: 10px;">
-    <div align="center"><b>Storage Account</b></div>
-    <img src="https://github.com/user-attachments/assets/aca825ec-4a7e-421a-a41e-0be462064f04" width="300"/>
-  </div>
-  <div style="display: inline-block; margin: 10px;">
-    <div align="center"><b>Blob Storage Container</b></div>
-    <img src="https://github.com/user-attachments/assets/90b3666c-767c-409b-933e-085054ca0be3" width="300"/>
-  </div>
-
-  <div style="display: inline-block; margin: 10px;">
-    <div align="center"><b>Azure Function App</b></div>
-    <img src="https://github.com/user-attachments/assets/a534a740-3dee-4923-a604-b248d65735ee" width="300"/>
-  </div>
-  <div style="display: inline-block; margin: 10px;">
-    <div align="center"><b>Web App (Backend)</b></div>
-    <img src="https://github.com/user-attachments/assets/d872b980-f109-40df-9cd5-b0c8f988559a" width="300"/>
-  </div>
-
-  <div style="display: inline-block; margin: 10px;">
-    <div align="center"><b>Web App (Frontend)</b></div>
-    <img src="https://github.com/user-attachments/assets/c9456c88-ef3c-4b32-bd74-79c39f65149f" width="300"/>
-  </div>
-  <div style="display: inline-block; margin: 10px;">
-    <div align="center"><b>Application Insights</b></div>
-    <img src="https://github.com/user-attachments/assets/5383f6e4-1493-47d2-8684-6d8b526d81dc" width="300"/>
-  </div>
-
-  <div style="display: inline-block; margin: 10px;">
-    <div align="center"><b>Application Insights Logs</b></div>
-    <img src="https://github.com/user-attachments/assets/3c50c6a0-9f88-4810-b77a-e971f5a1dbfd" width="300"/>
-  </div>
-  <div style="display: inline-block; margin: 10px;">
-    <div align="center"><b>App Insights Server Requests</b></div>
-    <img src="https://github.com/user-attachments/assets/bfb215a9-8dfe-4ecd-803f-efdea012ef8e" width="300"/>
-  </div>
-
-  <div style="display: inline-block; margin: 10px;">
-    <div align="center"><b>App Insights Failed Requests</b></div>
-    <img src="https://github.com/user-attachments/assets/7050b375-a345-4489-a4a8-dd1a0aeb01b1" width="300"/>
-  </div>
-
-</div>
-
-
-
-- Subscription
-![Image](https://github.com/user-attachments/assets/79dfd7a4-792f-40b3-acd8-97add2e3b74e)
-- Resource Group
-![Image](https://github.com/user-attachments/assets/c91bc5a4-fdc0-4355-a428-30e5cad90b07)
-- Database Server
-![Image](https://github.com/user-attachments/assets/aa681b29-701c-47b3-89c8-0f0bb114af15)
-- Azure SQL Database
-![Image](https://github.com/user-attachments/assets/fd56f062-d334-4f9a-9dcc-12aa9f37e65c)
-- Storage Account
-![Image](https://github.com/user-attachments/assets/aca825ec-4a7e-421a-a41e-0be462064f04)
-- Blob Storage Container
-![Image](https://github.com/user-attachments/assets/90b3666c-767c-409b-933e-085054ca0be3)
-- Azure Function App with 4 triggers
-![Image](https://github.com/user-attachments/assets/a534a740-3dee-4923-a604-b248d65735ee)
-- Web app service for hosting the backend
-![Image](https://github.com/user-attachments/assets/d872b980-f109-40df-9cd5-b0c8f988559a)
-- Web app service for hosting the frontend
-![Image](https://github.com/user-attachments/assets/c9456c88-ef3c-4b32-bd74-79c39f65149f)
-- Application Insights for monitoring and logging
-![Image](https://github.com/user-attachments/assets/5383f6e4-1493-47d2-8684-6d8b526d81dc)
-- Application Insights Logs
-![Image](https://github.com/user-attachments/assets/3c50c6a0-9f88-4810-b77a-e971f5a1dbfd)
-- Application-insights-server-requests
-![Image](https://github.com/user-attachments/assets/bfb215a9-8dfe-4ecd-803f-efdea012ef8e)
-- Application-insights-failed-requests
-![Image](https://github.com/user-attachments/assets/7050b375-a345-4489-a4a8-dd1a0aeb01b1)
 
 ---
 
@@ -305,7 +214,7 @@ while students can browse, enroll in, and complete courses at their own pace.
 
 - **Serverless Functions:** Azure Functions for specific tasks 
 
-- **CI/CD Pipeline:** Azure DevOps
+- **CI/CD Pipeline:** Azure DevOps (create CI pipeline to build the app)
 
 - **API Documentation:** Swagger
 
@@ -317,9 +226,49 @@ while students can browse, enroll in, and complete courses at their own pace.
 ---
 
 
+## 🏛️ Project Architecture
+
+EduPlatform is built using the **Clean Architecture** approach, which ensures separation of concerns, maintainability, and testability. 
+The solution is organized into four main layers:
+
+1. **Presentation Layer**  
+   - Contains the API controllers and handles HTTP requests/responses.
+   - Responsible for input validation and returning appropriate results to clients.
+
+2. **Application Layer**  
+   - Contains business logic, service and repository interfaces, and DTOs.
+   - Defines contracts for repositories and services, and orchestrates application workflows.
+
+3. **Domain Layer**  
+   - Contains core business entities.
+   - Represents the heart of the business logic, independent of external dependencies.
+
+4. **Infrastructure Layer**  
+   - Implements repository and service interfaces.
+   - Handles data access (using Entity Framework Core), external service integration (e.g., SendGrid, Stripe, Azure).
+
+### Key Architectural Patterns
+
+- **Repository Pattern:**  
+  Abstracts data access logic and provides a clean API for data operations. Each entity has a corresponding repository interface and implementation.
+
+- **Unit of Work Pattern:**  
+  Coordinates the work of multiple repositories by managing transactions and saving changes as a single unit. This ensures data consistency and integrity.
+
+- **Service Layer:**  
+  Encapsulates business logic and coordinates between repositories and controllers. Services are injected via dependency injection and promote code reusability and testability.
+
+### Benefits
+
+- **Separation of Concerns:** Each layer has a clear responsibility, making the codebase easier to understand and maintain.
+- **Testability:** Business logic and data access are decoupled, enabling effective unit and integration testing.
+- **Scalability:** The architecture supports future growth and integration with new technologies or services.
+
+
+---
+
+
 ## Integrations with Other Services
-
-
 - **Azure AD B2C:** For user authentication and authorization.
 - **Azure SQL Server:** For relational database management and data storage.
 - **Azure Blob Storage:** For storing media files like images and videos.
@@ -333,9 +282,34 @@ while students can browse, enroll in, and complete courses at their own pace.
 - **Health Check:** For monitoring the health of the application and its dependencies and to check the Liveness and Readiness.
 
 
-
 ---
 
+
+## ⚡ Azure Functions Integration
+
+EduPlatform leverages Azure Functions for serverless and background processing tasks. 
+The Azure Functions project is deployed separately and integrates seamlessly with the main platform.
+
+**Deployed Functions:**
+
+| Function Name                    | Trigger Type | Purpose/Description                                                         |
+|----------------------------------|--------------|-----------------------------------------------------------------------------|
+| SignUpValidation                 | HTTP         | Handles user sign-up validation logic.                                      |
+| UpdateUserProfile                | HTTP         | Updates user profile information asynchronously.                            |
+| VideoRequestTrigger              | SQL Trigger  | Listens for database changes and sends confirmation emails to users.        |
+| SendVideoRequestAckEmailToUser   | HTTP         | Sends acknowledgment emails to users for video requests, given a request ID |
+
+<img src="https://github.com/user-attachments/assets/a534a740-3dee-4923-a604-b248d65735ee" width="500"/>
+
+**Key Points:**
+- Functions are triggered by HTTP requests or database changes (SQL Trigger).
+- Decouples background jobs and event-driven logic from the main API.
+- Improves scalability and maintainability of the platform.
+
+*For more details, see the [Azure Functions Project Repository](https://github.com/Abdelaziz2010/Online-Course-Platform-Functions).*
+
+
+--- 
 
 
 ## 📚 API Documentation:
@@ -429,5 +403,88 @@ while students can browse, enroll in, and complete courses at their own pace.
 | PUT    | `/api/VideoRequests/Update-Video-Request/{id}`                       | Update video request by ID    |
 | DELETE | `/api/VideoRequests/Delete-Video-Request/{id}`                       | Delete video request by ID    |
 
+
 ---
 
+
+## Under Construction:
+
+- **Unit-Testing**: Using XUnit to test the project to enhance the security.
+
+---
+
+
+## 📝 Request/Response Examples: 
+*Sample Course Creation Request:*
+
+```json
+POST /api/Courses/Create-Course 
+Authorization: Bearer <your-jwt-token> 
+Content-Type: application/json 
+{
+  "title": "Data Science Masterclass",
+  "description": "Deep dive into Data Science using Python.",
+  "price": 399.99,
+  "courseType": "Online",
+  "seatsAvailable": 30,
+  "duration": 40,
+  "categoryId": 3,
+  "instructorId": 4,
+  "startDate": "2025-09-10T08:00:00",
+  "endDate": "2025-10-10T17:00:00",
+  "sessionDetails": [
+    {
+      "title": "Python for Data Analysis",
+      "description": "Numpy, Pandas basics",
+      "videoOrder": 1
+    },
+    {
+      "title": "Data Visualization",
+      "description": "Matplotlib, Seaborn plotting",
+      "videoOrder": 2
+    },
+    {
+      "title": "Machine Learning Basics",
+      "description": "Intro to Scikit-Learn",
+      "videoOrder": 3
+    },
+    {
+      "title": "Real World Projects",
+      "description": "End-to-end Data Science projects",
+      "videoOrder": 4
+    }
+  ]
+}
+```
+
+*Sample Response:*
+
+```json
+Status: 200 Ok
+Response: 
+{
+  "courseId": 44,
+  "sessionIds": [
+    50,
+    51,
+    52,
+    53
+  ]
+}
+```
+
+---
+
+## 🚀 Getting Started
+1. Clone the repository
+2. Configure database connection in `appsettings.json`
+3. Run migrations: `dotnet ef database update`
+4. Start the API: `dotnet run`
+
+
+---
+
+## Links
+- **Project Repository: https://github.com/Abdelaziz2010/Online-Course-Platform**
+
+- **Azure Functions Project Repository: https://github.com/Abdelaziz2010/Online-Course-Platform-Functions**
