@@ -15,8 +15,8 @@
 
 [![Azure](https://img.shields.io/badge/Azure-Cloud-0078D4?logo=microsoft-azure&logoColor=white)](https://azure.microsoft.com/)
 [![Azure AD B2C](https://img.shields.io/badge/Azure_AD_B2C-Identity-0078D4?logo=microsoft-azure&logoColor=white)](https://learn.microsoft.com/azure/active-directory-b2c/)
-[![Azure SQL](https://img.shields.io/badge/Azure_SQL-Database-0078D4?logo=microsoft-azure&logoColor=white)](https://azure.microsoft.com/products/azure-sql/)
-[![Azure Blob Storage](https://img.shields.io/badge/Azure_Blob_Storage-Storage-0078D4?logo=microsoft-azure&logoColor=white)](https://azure.microsoft.com/products/storage/blobs/)
+[![Azure SQL](https://img.shields.io/badge/Azure_SQL-Database-0078D4?logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/products/azure-sql/)
+[![Azure Blob Storage](https://img.shields.io/badge/Azure_Blob_Storage-Storage-0078D4?logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/products/storage/blobs/)
 [![Azure Functions](https://img.shields.io/badge/Azure_Functions-Serverless-0062AD?logo=azure-functions&logoColor=white)](https://azure.microsoft.com/products/functions/)
 [![Azure DevOps](https://img.shields.io/badge/Azure_DevOps-CI/CD-0078D7?logo=azure-devops&logoColor=white)](https://azure.microsoft.com/services/devops/)
 [![Azure Web App](https://img.shields.io/badge/Azure_Web_App-Hosting-0078D4?logo=microsoft-azure&logoColor=white)](https://azure.microsoft.com/products/app-service/)
