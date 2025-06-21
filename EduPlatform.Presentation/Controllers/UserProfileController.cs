@@ -1,14 +1,16 @@
+using Asp.Versioning;
 using EduPlatform.Application.DTOs.User;
 using EduPlatform.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 using System.IO;
+using System.Net;
 
 namespace EduPlatform.Presentation.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     //[Authorize] // Ensure only authenticated users can access these endpoints
     public class UserProfileController : ControllerBase
     {

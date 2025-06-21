@@ -1,17 +1,17 @@
-﻿using EduPlatform.Application.DTOs.Course;
+﻿using Asp.Versioning;
+using EduPlatform.Application.DTOs.Course;
 using EduPlatform.Application.Interfaces.Services;
-using EduPlatform.Infrastructure.Implementations.Services;
 using EduPlatform.Presentation.Common;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Identity.Web.Resource;
 
 namespace EduPlatform.Presentation.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class CoursesController : ControllerBase
     {
         private readonly ICourseService _courseService;

@@ -1,14 +1,16 @@
-using EduPlatform.Presentation.Middlewares;
+using Asp.Versioning.ApiExplorer;
 using EduPlatform.Application.Extensions;
 using EduPlatform.Infrastructure.Extensions;
+using EduPlatform.Presentation.Common;
+using EduPlatform.Presentation.Extensions;
+using EduPlatform.Presentation.Helpers;
+using EduPlatform.Presentation.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.Logging;
 using Serilog;
 using Serilog.Templates;
-using EduPlatform.Presentation.Extensions;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using EduPlatform.Presentation.Common;
 
 namespace EduPlatform.Presentation
 {
@@ -105,8 +107,6 @@ namespace EduPlatform.Presentation
 
                 builder.Services.AddEndpointsApiExplorer();
 
-                builder.Services.AddSwaggerGen();
-
                 builder.Services.AddPresentationServices(configuration);
 
                 builder.Services.AddInfrastructureServices(configuration);
@@ -135,9 +135,20 @@ namespace EduPlatform.Presentation
                 // Configure swagger middleware.
                 if (app.Environment.IsDevelopment())
                 {
+                    //this is needed for the Swagger UI to generate per version:
+                    
+                    var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+
                     app.MapOpenApi();
                     app.UseSwagger();
-                    app.UseSwaggerUI();
+                    app.UseSwaggerUI(options =>
+                    {
+                        foreach (var description in provider.ApiVersionDescriptions)
+                        {
+                            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+                                                    description.GroupName.ToUpperInvariant());
+                        }
+                    });
                 }
 
                 app.UseHttpsRedirection();
