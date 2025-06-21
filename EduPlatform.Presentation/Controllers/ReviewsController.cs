@@ -2,6 +2,7 @@
 using EduPlatform.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using System.ComponentModel.DataAnnotations;
 
 namespace EduPlatform.Presentation.Controllers
@@ -48,6 +49,7 @@ namespace EduPlatform.Presentation.Controllers
         /// <summary>
         /// Get all reviews for a specific course
         /// </summary>
+        [EnableRateLimiting("ReadOnlyPolicy")]
         [HttpGet("Get-Reviews-By-Course/{courseId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -69,6 +71,7 @@ namespace EduPlatform.Presentation.Controllers
         /// <summary>
         /// Get all reviews for a specific user
         /// </summary>
+        [EnableRateLimiting("ReadOnlyPolicy")]
         [HttpGet("Get-Reviews-By-User/{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -90,6 +93,7 @@ namespace EduPlatform.Presentation.Controllers
         /// <summary>
         /// Create a new review
         /// </summary>
+        [EnableRateLimiting("WritePolicy")]
         [HttpPost("Create-Review")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

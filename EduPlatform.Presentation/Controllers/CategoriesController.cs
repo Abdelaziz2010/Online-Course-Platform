@@ -2,6 +2,7 @@
 using EduPlatform.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace EduPlatform.Presentation.Controllers
 {
@@ -25,7 +26,8 @@ namespace EduPlatform.Presentation.Controllers
             }
             return Ok(category);
         }
-
+        
+        [EnableRateLimiting("ReadOnlyPolicy")]
         [HttpGet("Get-All-Categories")]
         public async Task<ActionResult<List<CategoryDTO>>> GetAllCategories()
         {

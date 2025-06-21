@@ -2,6 +2,7 @@
 using EduPlatform.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace EduPlatform.Presentation.Controllers
 {
@@ -17,6 +18,7 @@ namespace EduPlatform.Presentation.Controllers
             _emailNotification = emailNotification;
         }
 
+        [EnableRateLimiting("WritePolicy")]
         [HttpPost("Send-Message")]
         public async Task<IActionResult> SendMessageAsync([FromBody] ContactMessageDTO contactMessage)
         { 

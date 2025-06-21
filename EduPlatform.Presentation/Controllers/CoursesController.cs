@@ -5,6 +5,7 @@ using EduPlatform.Presentation.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Identity.Web.Resource;
 
 namespace EduPlatform.Presentation.Controllers
@@ -27,6 +28,7 @@ namespace EduPlatform.Presentation.Controllers
         // These 3 get methods are publicly available from our UI, no need to authenticate!
 
         // GET: api/Courses/Get-All-Courses
+        [EnableRateLimiting("ReadOnlyPolicy")]
         [HttpGet("Get-All-Courses")]
         [AllowAnonymous]
         public async Task<ActionResult<List<CourseDTO>>> GetAllCoursesAsync()
@@ -41,6 +43,7 @@ namespace EduPlatform.Presentation.Controllers
 
 
         // GET: api/Courses/Get-All-Courses-By-Category/{categoryId}
+        [EnableRateLimiting("ReadOnlyPolicy")]
         [HttpGet("Get-All-Courses-By-Category/{categoryId}")]
         [AllowAnonymous]
         public async Task<ActionResult<List<CourseDTO>>> GetAllCoursesByCategoryAsync([FromRoute] int categoryId)
@@ -67,6 +70,7 @@ namespace EduPlatform.Presentation.Controllers
             return Ok(course);
         }
 
+        [EnableRateLimiting("WritePolicy")]
         [HttpPost("Create-Course")]
         [Authorize]
         [AdminRole]

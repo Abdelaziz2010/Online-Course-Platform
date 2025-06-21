@@ -129,6 +129,8 @@ namespace EduPlatform.Presentation
                 app.UseMiddleware<RequestBodyLoggingMiddleware>();
                 app.UseMiddleware<ResponseBodyLoggingMiddleware>();
 
+                // Use Rate Limiter globally
+                app.UseRateLimiter();
 
                 // Configure swagger middleware.
                 if (app.Environment.IsDevelopment())
