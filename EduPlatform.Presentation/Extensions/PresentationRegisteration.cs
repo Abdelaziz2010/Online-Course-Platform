@@ -1,4 +1,7 @@
-﻿using EduPlatform.Presentation.Common;
+﻿using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
+using EduPlatform.Presentation.Common;
+using EduPlatform.Presentation.Helpers;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Threading.RateLimiting;
 
@@ -26,7 +29,7 @@ namespace EduPlatform.Presentation.Extensions
             #endregion
 
 
-            // Add Rate Limiting globally
+            // register Rate Limiting in services container 
             #region Rate Limiting Configurations
 
             services.AddRateLimiter(options =>
@@ -77,6 +80,36 @@ namespace EduPlatform.Presentation.Extensions
                     context.HttpContext.Response.ContentType = "application/json";
                     await context.HttpContext.Response.WriteAsync("{\"error\": \"You are being rate limited. Please try again later.\"}",token);
                 };
+            });
+
+            #endregion
+
+
+            services.AddSwaggerGen();
+
+            services.ConfigureOptions<ConfigureSwaggerOptions>();    // to generate Swagger docs for each API version
+
+            // This Service Registration ensures version descriptions are available to Swagger.
+            services.AddSingleton<IApiVersionDescriptionProvider, DefaultApiVersionDescriptionProvider>();
+
+            // register api versioning in services container 
+
+            #region API Versioning Configurations
+
+            services.AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1, 0);    // Set default API version
+                options.AssumeDefaultVersionWhenUnspecified = true;    // Use default version if not specified
+                options.ReportApiVersions = true;     // Report API versions in response headers
+                options.ApiVersionReader = ApiVersionReader.Combine(
+                    new QueryStringApiVersionReader("api-version"),
+                    new HeaderApiVersionReader("X-Version"),
+                    new UrlSegmentApiVersionReader()
+                );
+            }).AddApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV"; // Format for versioned API groups
+                options.SubstituteApiVersionInUrl = true; // Substitute version in URL
             });
 
             #endregion

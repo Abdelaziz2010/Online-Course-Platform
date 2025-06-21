@@ -1,11 +1,13 @@
-﻿using EduPlatform.Presentation.Common;
+﻿using Asp.Versioning;
+using EduPlatform.Presentation.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace EduPlatform.Presentation.Controllers
 {
     [ApiController]
-    [Route("api/health")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class HealthCheckController : ControllerBase
     {
         private readonly HealthCheckService _healthCheckService;

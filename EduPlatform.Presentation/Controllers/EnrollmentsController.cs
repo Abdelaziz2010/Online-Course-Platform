@@ -1,4 +1,5 @@
-﻿using EduPlatform.Application.DTOs.Enrollment;
+﻿using Asp.Versioning;
+using EduPlatform.Application.DTOs.Enrollment;
 using EduPlatform.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,8 +7,9 @@ using Microsoft.AspNetCore.RateLimiting;
 
 namespace EduPlatform.Presentation.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     //[Authorize]
     public class EnrollmentsController : ControllerBase
     {

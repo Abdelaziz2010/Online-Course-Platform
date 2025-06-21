@@ -1,4 +1,5 @@
-﻿using EduPlatform.Application.DTOs;
+﻿using Asp.Versioning;
+using EduPlatform.Application.DTOs;
 using EduPlatform.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,8 +7,9 @@ using Microsoft.AspNetCore.RateLimiting;
 
 namespace EduPlatform.Presentation.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [AllowAnonymous]
     public class ContactController : ControllerBase
     {

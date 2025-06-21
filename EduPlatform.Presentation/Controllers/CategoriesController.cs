@@ -1,4 +1,5 @@
-﻿using EduPlatform.Application.DTOs.Category;
+﻿using Asp.Versioning;
+using EduPlatform.Application.DTOs.Category;
 using EduPlatform.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -6,8 +7,11 @@ using Microsoft.AspNetCore.RateLimiting;
 
 namespace EduPlatform.Presentation.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
