@@ -2,6 +2,7 @@
 using EduPlatform.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace EduPlatform.Presentation.Controllers
 {
@@ -86,6 +87,7 @@ namespace EduPlatform.Presentation.Controllers
         /// <summary>
         /// Create a new enrollment
         /// </summary>
+        [EnableRateLimiting("WritePolicy")]
         [HttpPost("Create-Enrollment")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

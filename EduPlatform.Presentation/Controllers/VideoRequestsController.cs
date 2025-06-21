@@ -3,6 +3,7 @@ using EduPlatform.Application.Interfaces.Services;
 using EduPlatform.Presentation.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Identity.Web.Resource;
 using System.Collections.Generic;
 
@@ -21,7 +22,10 @@ namespace EduPlatform.Presentation.Controllers
             _videoRequestService = videoRequestService;
             _userClaims = userClaims;
         }
-        
+
+
+
+        [EnableRateLimiting("ReadOnlyPolicy")]
         [HttpGet("Get-All-Video-Requests")]
         [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Read")]
         // This endpoint retrieves all video requests. Admins can see all requests, while regular users can only see their own.
@@ -72,6 +76,7 @@ namespace EduPlatform.Presentation.Controllers
             return Ok(videoRequests);
         }
 
+        [EnableRateLimiting("WritePolicy")]
         [HttpPost("Create-Video-Request")]
         [RequiredScope(RequiredScopesConfigurationKey = "AzureADB2C:Scopes:Write")]
         public async Task<ActionResult<VideoRequestDTO>> CreateAsync([FromBody] VideoRequestDTO videoRequest)
