@@ -1,7 +1,6 @@
 ﻿using EduPlatform.Presentation.Common;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Threading.RateLimiting;
-using Microsoft.AspNetCore.RateLimiting; // Add this using
 
 namespace EduPlatform.Presentation.Extensions
 {
@@ -34,38 +33,41 @@ namespace EduPlatform.Presentation.Extensions
             {
                 // Policy for read-only endpoints (GET)
                 options.AddPolicy("ReadOnlyPolicy", context =>
-                    RateLimitPartition.GetFixedWindowLimiter(
+                    RateLimitPartition.GetSlidingWindowLimiter(
                         context.User.Identity?.Name ?? context.Connection.RemoteIpAddress?.ToString() ?? "anonymous",
-                        key => new FixedWindowRateLimiterOptions
+                        key => new SlidingWindowRateLimiterOptions
                         {
-                            PermitLimit = 20, // 20 requests
-                            Window = TimeSpan.FromMinutes(1), // per minute
+                            PermitLimit = 20,                     // 20 requests total
+                            Window = TimeSpan.FromMinutes(1),     // in a 1 minute window
+                            SegmentsPerWindow = 4,                // divide 1 minute into 4 parts (15 seconds each)
                             QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
-                            QueueLimit = 2
+                            QueueLimit = 0                        // reject immediately if limit is exceeded, no frozen requests
                         }));
 
                 // Policy for write endpoints (POST/PUT/DELETE)
                 options.AddPolicy("WritePolicy", context =>
-                    RateLimitPartition.GetFixedWindowLimiter(
+                    RateLimitPartition.GetSlidingWindowLimiter(
                         context.User.Identity?.Name ?? context.Connection.RemoteIpAddress?.ToString() ?? "anonymous",
-                        key => new FixedWindowRateLimiterOptions
+                        key => new SlidingWindowRateLimiterOptions
                         {
-                            PermitLimit = 5, // 5 requests
-                            Window = TimeSpan.FromMinutes(1),
+                            PermitLimit = 5,                     // 5 requests total
+                            Window = TimeSpan.FromMinutes(1),    // in a 1 minute window
+                            SegmentsPerWindow = 4,               // divide 1 minute into 4 parts (15 seconds each)
                             QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
-                            QueueLimit = 2
+                            QueueLimit = 0
                         }));
 
-                // Optional: Set a sensible global fallback
+                // Global limiter as a fallback for untagged endpoints.
                 options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
-                    RateLimitPartition.GetFixedWindowLimiter(
+                    RateLimitPartition.GetSlidingWindowLimiter(
                         context.User.Identity?.Name ?? context.Connection.RemoteIpAddress?.ToString() ?? "anonymous",
-                        key => new FixedWindowRateLimiterOptions
+                        key => new SlidingWindowRateLimiterOptions
                         {
-                            PermitLimit = 50,
+                            PermitLimit = 50,                    // 50 requests total
                             Window = TimeSpan.FromMinutes(1),
+                            SegmentsPerWindow = 4,               // 4 segments of 15 seconds each
                             QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
-                            QueueLimit = 3
+                            QueueLimit = 0
                         }));
 
                 // Custom response on rate limit rejection
@@ -73,12 +75,10 @@ namespace EduPlatform.Presentation.Extensions
                 {
                     context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
                     context.HttpContext.Response.ContentType = "application/json";
-                    await context.HttpContext.Response.WriteAsync(
-                        "{\"error\": \"You are being rate limited. Please try again later.\"}",
-                        token);
+                    await context.HttpContext.Response.WriteAsync("{\"error\": \"You are being rate limited. Please try again later.\"}",token);
                 };
             });
-            // •	Keep the global limiter as a fallback for untagged endpoints.
+
             #endregion
 
             return services;
